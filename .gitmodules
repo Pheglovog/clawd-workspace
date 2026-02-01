@@ -1,0 +1,3 @@
+[submodule "Pheglovog-homepage/themes/hugo-geekdoc"]
+	path = Pheglovog-homepage/themes/hugo-geekdoc
+	url = https://github.com/thegeeklab/hugo-geekdoc
