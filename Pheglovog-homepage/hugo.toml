@@ -1,0 +1,23 @@
+baseURL = 'https://pheglovog.github.io/pheglovog-site/'
+languageCode = 'zh-CN'
+title = 'Pheglovog'
+canonifyURLs = false
+
+# 参数配置
+[params]
+  description = "量化交易 | 区块链 | 全栈开发"
+  title = "Pheglovog"
+
+# Markdown 配置
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# 输出配置
+[outputs]
+  home = ["HTML"]
+  section = ["HTML"]
+  page = ["HTML"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]

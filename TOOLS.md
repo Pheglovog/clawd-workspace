@@ -2,35 +2,68 @@
 
 Skills define *how* tools work. This file is for *your* specifics — the stuff that's unique to your setup.
 
-## What Goes Here
+## Proxy Configuration
+
+### 代理服务器
+- **地址**: http://127.0.0.1:7890
+- **类型**: HTTP/HTTPS 代理
+- **进程**: mihomo (PID: 88611)
+
+### 启动/关闭代理
+```bash
+# 启动代理
+source ~/proxy_on.sh
+
+# 关闭代理
+source ~/proxy_off.sh
+```
+
+### 在命令中使用代理
+```bash
+bash -c 'source ~/proxy_on.sh && <command>'
+```
+
+### Git 使用代理
+```bash
+bash -c 'source ~/proxy_on.sh && git clone <repo>'
+bash -c 'source ~/proxy_on.sh && git push'
+```
+
+### curl 使用代理
+```bash
+bash -c 'source ~/proxy_on.sh && curl <url>'
+```
+
+---
+
+## What Else Goes Here
 
 Things like:
 - Camera names and locations
-- SSH hosts and aliases  
+- SSH hosts and aliases
 - Preferred voices for TTS
 - Speaker/room names
 - Device nicknames
 - Anything environment-specific
 
-## Examples
+---
 
-```markdown
-### Cameras
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
+## Git 全局配置
 
-### SSH
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
+```bash
+user.name: 上等兵•甘
+user.email: 3042569263@qq.com
 ```
 
-## Why Separate?
+## Tushare Pro 2000 积分
 
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
+```
+Token: cc9f4227a4be5c67699791c24526d2ec3947877f1cec3619866078f4
+积分: 2000
+并发限制: 5
+测试: ✅ 全部通过
+```
 
 ---
 
-Add whatever helps you do your job. This is your cheat sheet.
+*Updated: 2026-02-01*

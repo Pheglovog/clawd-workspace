@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="量化交易 | 区块链 | 全栈开发">
+  <title>CarLife 区块链汽车生活平台开发经验 - Pheglovog</title>
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="/" class="navbar-brand">Pheglovog</a>
+      <div class="navbar-links">
+        <a href="/" class="navbar-link">首页</a>
+        <a href="/projects/" class="navbar-link">项目</a>
+        <a href="/posts/" class="navbar-link">博客</a>
+        <a href="/about/" class="navbar-link">关于</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarLife 区块链汽车生活平台开发经验 - Pheglovog</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+
+     
+    .header-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #f0f0f0;
+      padding: 16px 0;
+      z-index: 100;
+    }
+
+    .nav-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: #666;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #1a1a1a;
+    }
+
+     
+    .content {
+      padding: 60px 0;
+    }
+
+    .article-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .article-meta {
+      color: #999;
+      font-size: 14px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .article-content {
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .article-content h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 40px 0 16px;
+      color: #1a1a1a;
+    }
+
+    .article-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: #1a1a1a;
+    }
+
+    .article-content p {
+      margin-bottom: 16px;
+    }
+
+    .article-content ul {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    .article-content li {
+      margin-bottom: 8px;
+    }
+
+    .article-content code {
+      background: #f5f5f5;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: "SF Mono", "Monaco", "Courier New", monospace;
+      font-size: 14px;
+      color: #e83e8c;
+    }
+
+    .article-content pre {
+      background: #f5f5f5;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+
+     
+    .tags {
+      margin-top: 32px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: #f0f0f0;
+      color: #1a1a1a;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+     
+    .footer {
+      text-align: center;
+      padding: 60px 20px;
+      margin-top: 80px;
+      border-top: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+
+    .footer p {
+      color: #999;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .footer a {
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+     
+    .back-nav {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #f5f5f5;
+      border-color: #1a1a1a;
+    }
+
+     
+    @media (max-width: 768px) {
+      .container {
+        padding: 60px 16px;
+      }
+
+      .nav-content {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .article-title {
+        font-size: 28px;
+      }
+
+      .article-content h2 {
+        font-size: 20px;
+        margin: 32px 0 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-nav">
+    <div class="nav-content">
+      <a href="/" class="logo">Pheglovog</a>
+      <div class="nav-links">
+        <a href="/">首页</a>
+        <a href="/projects/">项目</a>
+        <a href="/posts/">博客</a>
+        <a href="/about/">关于</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-nav">
+    <a href="/posts/" class="back-btn">← 返回博客列表</a>
+  </div>
+
+  <div class="container content">
+    <h1 class="article-title">CarLife 区块链汽车生活平台开发经验</h1>
+    <div class="article-meta">
+      📅 2026年02月01日 00:00
+    </div>
+    <div class="article-content">
+      <h2 id="项目背景">项目背景</h2>
+<p>CarLife 是一个基于 Ethereum 区块链的汽车生活平台，利用区块链技术记录车辆的完整生命周期信息。</p>
+<h2 id="核心功能">核心功能</h2>
+<h3 id="1-车辆-nft-erc721">1. 车辆 NFT (ERC721)</h3>
+<p>每辆车被铸造为一个独特的 NFT，包含：</p>
+<ul>
+<li>车辆基本信息（VIN、品牌、型号）</li>
+<li>里程记录</li>
+<li>维修历史</li>
+<li>车主信息</li>
+</ul>
+<h3 id="2-服务商注册">2. 服务商注册</h3>
+<p>智能合约允许服务商注册：</p>
+<ul>
+<li>汽车维修店</li>
+<li>保险公司</li>
+<li>加油站</li>
+<li>洗车店</li>
+</ul>
+<h3 id="3-评价系统">3. 评价系统</h3>
+<p>用户可以对服务商进行评分和评价，所有记录存储在区块链上，不可篡改。</p>
+<h3 id="4-数据-token">4. 数据 Token</h3>
+<p>使用 ERC20 标准的 Data Token 激励用户分享车辆数据。</p>
+<h2 id="技术栈">技术栈</h2>
+<ul>
+<li><strong>智能合约</strong>: Solidity</li>
+<li><strong>标准</strong>: ERC721, ERC20</li>
+<li><strong>库</strong>: OpenZeppelin</li>
+<li><strong>后端</strong>: FastAPI (Python)</li>
+<li><strong>前端</strong>: HTML/CSS/JavaScript</li>
+<li><strong>Web3 库</strong>: Ethers.js</li>
+</ul>
+<h2 id="开发经验">开发经验</h2>
+<h3 id="1-solidity-学习">1. Solidity 学习</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#75715e">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">8</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;@openzeppelin/contracts/token/ERC721/ERC721.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;@openzeppelin/contracts/access/Ownable.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">CarNFT</span> <span style="color:#66d9ef">is</span> ERC721, Ownable {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Car</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> vin;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> brand;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> model;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint256</span> mileage;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">address</span> owner;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">mapping</span>(<span style="color:#66d9ef">uint256</span> <span style="color:#f92672">=&gt;</span> Car) <span style="color:#66d9ef">public</span> cars;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint256</span> <span style="color:#66d9ef">private</span> _tokenIdCounter;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>() ERC721(<span style="color:#e6db74">&#34;CarLife Car&#34;</span>, <span style="color:#e6db74">&#34;CLCAR&#34;</span>) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">mintCar</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">memory</span> vin,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">memory</span> brand,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">memory</span> model
+</span></span><span style="display:flex;"><span>    ) <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint256</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint256</span> tokenId <span style="color:#f92672">=</span> _tokenIdCounter;
+</span></span><span style="display:flex;"><span>        _tokenIdCounter<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        _mint(msg.sender, tokenId);
+</span></span><span style="display:flex;"><span>        cars[tokenId] <span style="color:#f92672">=</span> Car(vin, brand, model, <span style="color:#ae81ff">0</span>, msg.sender);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tokenId;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updateMileage</span>(<span style="color:#66d9ef">uint256</span> tokenId, <span style="color:#66d9ef">uint256</span> newMileage) <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        require(_isApprovedOrOwner(_msgSender(), tokenId), <span style="color:#e6db74">&#34;Not authorized&#34;</span>);
+</span></span><span style="display:flex;"><span>        cars[tokenId].mileage <span style="color:#f92672">=</span> newMileage;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="2-openzeppelin-库使用">2. OpenZeppelin 库使用</h3>
+<p>OpenZeppelin 提供了经过审计的安全合约：</p>
+<ul>
+<li><code>ERC721</code> - NFT 标准</li>
+<li><code>Ownable</code> - 所有者权限管理</li>
+<li><code>Counters</code> - 计数器工具</li>
+<li><code>ERC20</code> - 代币标准</li>
+</ul>
+<h3 id="3-gas-优化">3. Gas 优化</h3>
+<ul>
+<li>使用 <code>calldata</code> 代替 <code>memory</code></li>
+<li>批量操作减少交易次数</li>
+<li>使用事件记录日志，节省存储成本</li>
+</ul>
+<h3 id="4-安全考虑">4. 安全考虑</h3>
+<ul>
+<li>检查 <code>msg.sender</code> 权限</li>
+<li>使用 <code>onlyOwner</code> 修饰符</li>
+<li>验证输入参数</li>
+<li>防止重入攻击</li>
+</ul>
+<h2 id="部署">部署</h2>
+<h3 id="测试网">测试网</h3>
+<ol>
+<li>连接到 Sepolia 测试网</li>
+<li>使用 Remix 或 Hardhat 部署</li>
+<li>验证合约代码</li>
+</ol>
+<h3 id="主网">主网</h3>
+<ol>
+<li>审计合约代码</li>
+<li>获取测试网 ETH</li>
+<li>部署到主网</li>
+<li>验证合约</li>
+</ol>
+<h2 id="项目地址">项目地址</h2>
+<p><a href="https://github.com/Pheglovog/carlife-eth">GitHub</a></p>
+<h2 id="总结">总结</h2>
+<p>通过 CarLife 项目，我深入学习了：</p>
+<ol>
+<li>Solidity 智能合约开发</li>
+<li>ERC721 和 ERC20 标准</li>
+<li>区块链应用架构</li>
+<li>Web3 前端集成</li>
+</ol>
+<p>区块链技术正在改变汽车行业，我很高兴能参与其中！</p>
+<hr>
+<p><strong>🚗 未来的汽车生活，从 CarLife 开始！</strong></p>
+
+    </div>
+    
+    <div class="tags">
+      
+      <span class="tag">区块链</span>
+      
+      <span class="tag">Solidity</span>
+      
+      <span class="tag">Ethereum</span>
+      
+    </div>
+    
+  </div>
+
+  <div class="footer">
+    <p>© 2026 Pheglovog</p>
+    <a href="https://github.com/Pheglovog" target="_blank">GitHub</a>
+  </div>
+</body>
+</html>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p class="footer-text">© 2026 Pheglovog</p>
+      <a href="https://github.com/Pheglovog" class="footer-link">GitHub</a>
+    </div>
+  </footer>
+</body>
+</html>

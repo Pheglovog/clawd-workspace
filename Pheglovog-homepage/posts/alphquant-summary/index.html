@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="量化交易 | 区块链 | 全栈开发">
+  <title>AlphaQuant 中国股市量化系统开发总结 - Pheglovog</title>
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="/" class="navbar-brand">Pheglovog</a>
+      <div class="navbar-links">
+        <a href="/" class="navbar-link">首页</a>
+        <a href="/projects/" class="navbar-link">项目</a>
+        <a href="/posts/" class="navbar-link">博客</a>
+        <a href="/about/" class="navbar-link">关于</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlphaQuant 中国股市量化系统开发总结 - Pheglovog</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+
+     
+    .header-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #f0f0f0;
+      padding: 16px 0;
+      z-index: 100;
+    }
+
+    .nav-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: #666;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #1a1a1a;
+    }
+
+     
+    .content {
+      padding: 60px 0;
+    }
+
+    .article-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .article-meta {
+      color: #999;
+      font-size: 14px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .article-content {
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .article-content h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 40px 0 16px;
+      color: #1a1a1a;
+    }
+
+    .article-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: #1a1a1a;
+    }
+
+    .article-content p {
+      margin-bottom: 16px;
+    }
+
+    .article-content ul {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    .article-content li {
+      margin-bottom: 8px;
+    }
+
+    .article-content code {
+      background: #f5f5f5;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: "SF Mono", "Monaco", "Courier New", monospace;
+      font-size: 14px;
+      color: #e83e8c;
+    }
+
+    .article-content pre {
+      background: #f5f5f5;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+
+     
+    .tags {
+      margin-top: 32px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: #f0f0f0;
+      color: #1a1a1a;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+     
+    .footer {
+      text-align: center;
+      padding: 60px 20px;
+      margin-top: 80px;
+      border-top: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+
+    .footer p {
+      color: #999;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .footer a {
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+     
+    .back-nav {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #f5f5f5;
+      border-color: #1a1a1a;
+    }
+
+     
+    @media (max-width: 768px) {
+      .container {
+        padding: 60px 16px;
+      }
+
+      .nav-content {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .article-title {
+        font-size: 28px;
+      }
+
+      .article-content h2 {
+        font-size: 20px;
+        margin: 32px 0 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-nav">
+    <div class="nav-content">
+      <a href="/" class="logo">Pheglovog</a>
+      <div class="nav-links">
+        <a href="/">首页</a>
+        <a href="/projects/">项目</a>
+        <a href="/posts/">博客</a>
+        <a href="/about/">关于</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-nav">
+    <a href="/posts/" class="back-btn">← 返回博客列表</a>
+  </div>
+
+  <div class="container content">
+    <h1 class="article-title">AlphaQuant 中国股市量化系统开发总结</h1>
+    <div class="article-meta">
+      📅 2026年02月01日 00:00
+    </div>
+    <div class="article-content">
+      <h2 id="项目概述">项目概述</h2>
+<p>AlphaQuant 是一个基于符号回归的中国股市量化交易系统，专注于因子挖掘和策略回测。</p>
+<h2 id="核心模块">核心模块</h2>
+<h3 id="1-数据管道-data-pipeline">1. 数据管道 (Data Pipeline)</h3>
+<ul>
+<li>Tushare Pro 异步接口</li>
+<li>并发控制（支持 2000 积分 = 5 并发）</li>
+<li>429 错误重试（指数退避）</li>
+<li>API 数据解析</li>
+</ul>
+<h3 id="2-因子引擎-factor-engine">2. 因子引擎 (Factor Engine)</h3>
+<ul>
+<li>6 维基础因子（RET, PRESSURE, FOMO, DEV, VOL, AMP）</li>
+<li>18 维高级因子（RSI, MACD, 布林带, ATR, 北向资金等）</li>
+<li>24 维总因子空间</li>
+</ul>
+<h3 id="3-回测引擎-backtest-engine">3. 回测引擎 (Backtest Engine)</h3>
+<ul>
+<li>T+1 交易规则</li>
+<li>涨跌停限制（主板10%、创业板20%、科创板20%、北交所30%）</li>
+<li>交易成本（佣金、印花税、过户费）</li>
+<li>滑点模型</li>
+</ul>
+<h3 id="4-alphaquant-模型">4. AlphaQuant 模型</h3>
+<ul>
+<li>QK-Norm 注意力</li>
+<li>SwiGLU 前馈网络</li>
+<li>RMSNorm 归一化</li>
+<li>市场情绪编码</li>
+<li>多任务学习（收益、夏普、回撤）</li>
+</ul>
+<h3 id="5-策略管理器">5. 策略管理器</h3>
+<ul>
+<li>信号生成</li>
+<li>持仓管理</li>
+<li>风险控制（止损止盈、移动止损）</li>
+<li>仓位计算</li>
+</ul>
+<h3 id="6-可视化面板">6. 可视化面板</h3>
+<ul>
+<li>Streamlit 可视化</li>
+<li>权益曲线</li>
+<li>回撤曲线</li>
+<li>收益分布</li>
+<li>交易记录</li>
+</ul>
+<h2 id="技术栈">技术栈</h2>
+<ul>
+<li><strong>语言</strong>: Python</li>
+<li><strong>深度学习</strong>: PyTorch</li>
+<li><strong>数据处理</strong>: Pandas, NumPy</li>
+<li><strong>数据源</strong>: Tushare Pro (2000 积分)</li>
+<li><strong>可视化</strong>: Streamlit, Matplotlib</li>
+<li><strong>规范</strong>: OpenSpec</li>
+</ul>
+<h2 id="项目地址">项目地址</h2>
+<p><a href="https://github.com/Pheglovog/AlphaGPT">GitHub</a></p>
+<h2 id="收获与总结">收获与总结</h2>
+<p>通过这个项目，我深入学习了：</p>
+<ol>
+<li>Tushare Pro API 集成和并发控制</li>
+<li>OpenSpec 开发规范</li>
+<li>中国股市交易规则（T+1、涨跌停、交易成本）</li>
+<li>量化系统架构设计</li>
+<li>模型训练和回测框架</li>
+</ol>
+<hr>
+<p><strong>持续学习中，欢迎交流！</strong> 💪</p>
+
+    </div>
+    
+    <div class="tags">
+      
+      <span class="tag">量化</span>
+      
+      <span class="tag">Python</span>
+      
+      <span class="tag">PyTorch</span>
+      
+    </div>
+    
+  </div>
+
+  <div class="footer">
+    <p>© 2026 Pheglovog</p>
+    <a href="https://github.com/Pheglovog" target="_blank">GitHub</a>
+  </div>
+</body>
+</html>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p class="footer-text">© 2026 Pheglovog</p>
+      <a href="https://github.com/Pheglovog" class="footer-link">GitHub</a>
+    </div>
+  </footer>
+</body>
+</html>

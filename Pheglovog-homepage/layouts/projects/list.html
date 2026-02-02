@@ -1,0 +1,319 @@
+{{ define "main" }}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>项目 - Pheglovog</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #f0f0f0;
+      padding: 16px 0;
+      z-index: 100;
+    }
+
+    .nav-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: #666;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #1a1a1a;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #1a1a1a;
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #000000;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #1a1a1a;
+      border: 2px solid #e0e0e0;
+    }
+
+    .btn-outline:hover {
+      border-color: #1a1a1a;
+      background: #f8f9fa;
+    }
+
+    /* Projects */
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 48px;
+      color: #1a1a1a;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: #ffffff;
+      border: 1px solid #f0f0f0;
+      border-radius: 12px;
+      padding: 24px;
+      text-decoration: none;
+      color: #1a1a1a;
+      transition: all 0.3s;
+      display: block;
+    }
+
+    .project-card:hover {
+      border-color: #1a1a1a;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+    }
+
+    .project-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .project-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: #f8f9fa;
+      color: #1a1a1a;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 60px 20px;
+      border-top: 1px solid #f0f0f0;
+      margin-top: 80px;
+    }
+
+    .footer p {
+      color: #999;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .footer a {
+      color: #666;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-nav">
+    <div class="nav-content">
+      <a href="/" class="logo">Pheglovog</a>
+      <div class="nav-links">
+        <a href="/">首页</a>
+        <a href="/projects/">项目</a>
+        <a href="/posts/">博客</a>
+        <a href="/about/">关于</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>项目</h1>
+    <p>探索我的开源项目</p>
+    <div class="hero-actions">
+      <a href="/" class="btn btn-primary">返回首页</a>
+      <a href="/posts/" class="btn btn-outline">阅读博客</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+      <h2 class="section-title">精选项目</h2>
+      <div class="projects-grid">
+        <a href="https://github.com/Pheglovog/AlphaGPT" target="_blank" class="project-card">
+          <span class="project-icon">📊</span>
+          <h3 class="project-title">AlphaGPT</h3>
+          <p class="project-desc">基于符号回归的中国股市量化交易系统，支持因子挖掘、策略回测和深度学习模型。</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">Tushare</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/Pheglovog/carlife-eth" target="_blank" class="project-card">
+          <span class="project-icon">🔗</span>
+          <h3 class="project-title">CarLife</h3>
+          <p class="project-desc">基于 Ethereum 的汽车生活平台，车辆 NFT + 服务商注册 + 评价系统。</p>
+          <div class="project-tags">
+            <span class="tag">Solidity</span>
+            <span class="tag">ERC721</span>
+            <span class="tag">Web3</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/Pheglovog/CurrencyExchange" target="_blank" class="project-card">
+          <span class="project-icon">💱</span>
+          <h3 class="project-title">CurrencyExchange</h3>
+          <p class="project-desc">去中心化的加密货币交易系统，支持实时汇率和多币种交易。</p>
+          <div class="project-tags">
+            <span class="tag">Vue 3</span>
+            <span class="tag">Go</span>
+            <span class="tag">TypeScript</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2026 Pheglovog</p>
+    <a href="https://github.com/Pheglovog" target="_blank">GitHub</a>
+  </div>
+</body>
+</html>
+{{ end }}

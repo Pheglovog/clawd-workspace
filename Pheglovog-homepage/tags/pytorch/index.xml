@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PyTorch on Pheglovog</title>
+    <link>https://pheglovog.github.io/pheglovog-site/tags/pytorch/</link>
+    <description>Recent content in PyTorch on Pheglovog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://pheglovog.github.io/pheglovog-site/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AlphaQuant 中国股市量化系统开发总结</title>
+      <link>https://pheglovog.github.io/pheglovog-site/posts/alphquant-summary/</link>
+      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://pheglovog.github.io/pheglovog-site/posts/alphquant-summary/</guid>
+      <description>&lt;h2 id=&#34;项目概述&#34;&gt;项目概述&lt;/h2&gt;&#xA;&lt;p&gt;AlphaQuant 是一个基于符号回归的中国股市量化交易系统，专注于因子挖掘和策略回测。&lt;/p&gt;&#xA;&lt;h2 id=&#34;核心模块&#34;&gt;核心模块&lt;/h2&gt;&#xA;&lt;h3 id=&#34;1-数据管道-data-pipeline&#34;&gt;1. 数据管道 (Data Pipeline)&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Tushare Pro 异步接口&lt;/li&gt;&#xA;&lt;li&gt;并发控制（支持 2000 积分 = 5 并发）&lt;/li&gt;&#xA;&lt;li&gt;429 错误重试（指数退避）&lt;/li&gt;&#xA;&lt;li&gt;API 数据解析&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;2-因子引擎-factor-engine&#34;&gt;2. 因子引擎 (Factor Engine)&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;6 维基础因子（RET, PRESSURE, FOMO, DEV, VOL, AMP）&lt;/li&gt;&#xA;&lt;li&gt;18 维高级因子（RSI, MACD, 布林带, ATR, 北向资金等）&lt;/li&gt;&#xA;&lt;li&gt;24 维总因子空间&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;3-回测引擎-backtest-engine&#34;&gt;3. 回测引擎 (Backtest Engine)&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;T+1 交易规则&lt;/li&gt;&#xA;&lt;li&gt;涨跌停限制（主板10%、创业板20%、科创板20%、北交所30%）&lt;/li&gt;&#xA;&lt;li&gt;交易成本（佣金、印花税、过户费）&lt;/li&gt;&#xA;&lt;li&gt;滑点模型&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;4-alphaquant-模型&#34;&gt;4. AlphaQuant 模型&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;QK-Norm 注意力&lt;/li&gt;&#xA;&lt;li&gt;SwiGLU 前馈网络&lt;/li&gt;&#xA;&lt;li&gt;RMSNorm 归一化&lt;/li&gt;&#xA;&lt;li&gt;市场情绪编码&lt;/li&gt;&#xA;&lt;li&gt;多任务学习（收益、夏普、回撤）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;5-策略管理器&#34;&gt;5. 策略管理器&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;信号生成&lt;/li&gt;&#xA;&lt;li&gt;持仓管理&lt;/li&gt;&#xA;&lt;li&gt;风险控制（止损止盈、移动止损）&lt;/li&gt;&#xA;&lt;li&gt;仓位计算&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;6-可视化面板&#34;&gt;6. 可视化面板&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Streamlit 可视化&lt;/li&gt;&#xA;&lt;li&gt;权益曲线&lt;/li&gt;&#xA;&lt;li&gt;回撤曲线&lt;/li&gt;&#xA;&lt;li&gt;收益分布&lt;/li&gt;&#xA;&lt;li&gt;交易记录&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;技术栈&#34;&gt;技术栈&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;语言&lt;/strong&gt;: Python&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;深度学习&lt;/strong&gt;: PyTorch&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;数据处理&lt;/strong&gt;: Pandas, NumPy&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;数据源&lt;/strong&gt;: Tushare Pro (2000 积分)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;可视化&lt;/strong&gt;: Streamlit, Matplotlib&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;规范&lt;/strong&gt;: OpenSpec&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;项目地址&#34;&gt;项目地址&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/Pheglovog/AlphaGPT&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
