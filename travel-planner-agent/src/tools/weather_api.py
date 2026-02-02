@@ -4,7 +4,7 @@
 """
 
 import os
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from datetime import datetime, timedelta
 import httpx
 from pydantic import BaseModel
@@ -230,7 +230,7 @@ class WeatherAPI:
             "weather": weather,
             "forecast": forecast,
             "tips": self._generate_tips(weather, forecast),
-            "clothing": self._generate_clothing_advice(weather, forecast)
+            "clothing": self._generate_clothing_advice(weather, forecast),
             "best_days": self._find_best_days(forecast)
         }
 
@@ -333,7 +333,7 @@ class WeatherAPI:
         return sorted_days[:3]
 
     async def close(self):
-        """关闭 HTTP 客户"""
+        """关闭 HTTP 客户端"""
         await self.client.aclose()
 
 
