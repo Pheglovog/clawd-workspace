@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "web-reader": {
+      "baseUrl": "https://open.bigmodel.cn/api/mcp/web_reader/mcp",
+      "headers": {
+        "Authorization": "Bearer 4f323b88793b486ea3d3701c29322891.sdXOhjj97ypMv5vv"
+      }
+    },
+    "web-search": {
+      "baseUrl": "https://open.bigmodel.cn/api/mcp/web_search_prime/mcp",
+      "headers": {
+        "Authorization": "Bearer 4f323b88793b486ea3d3701c29322891.sdXOhjj97ypMv5vv"
+      }
+    },
+    "zread": {
+      "baseUrl": "https://open.bigmodel.cn/api/mcp/zread/mcp",
+      "headers": {
+        "Authorization": "Bearer 4f323b88793b486ea3d3701c29322891.sdXOhjj97ypMv5vv"
+      }
+    }
+  },
+  "imports": []
+}

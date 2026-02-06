@@ -8,10 +8,10 @@ pragma solidity ^0.8.20;
  * @dev This is the optimized version for testing
  */
 
-import "@openzeppelin/contracts/token/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/access/extensions/AccessControlEnumerable.sol";
 
 contract CarNFT is ERC721, ERC721Enumerable, Pausable, AccessControlEnumerable {
     // ====== 状态变量 ======
