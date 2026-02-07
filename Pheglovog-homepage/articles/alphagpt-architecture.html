@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AlphaGPT 技术架构 - 中国股市量化交易系统的完整技术架构设计，包括数据层、策略层、执行层和监控层">
+  <meta name="keywords" content="AlphaGPT, 量化交易, 技术架构, Python, FastAPI, AI, 机器学习">
+  <meta name="author" content="Pheglovog">
+  <title>AlphaGPT 技术架构 - Pheglovog</title>
+  <link rel="canonical" href="https://pheglovog.github.io/pheglovog-site/articles/alphagpt-architecture.html">
+
+  <style>
+    /* 全局样式 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "SF Pro Text", BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+    .nav { display: flex; gap: 32px; }
+    .nav a {
+      font-size: 15px;
+      color: #666;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+    .nav a:hover { color: #1a1a1a; }
+    .nav a.active { color: #1a1a1a; font-weight: 600; }
+
+    /* Article */
+    article {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      background: #fff;
+    }
+    .article-header {
+      margin-bottom: 40px;
+    }
+    .article-meta {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 16px;
+    }
+    .article-title {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    .article-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .article-tag {
+      background: #fafafa;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* Content */
+    .article-content h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 48px 0 20px;
+      letter-spacing: -0.5px;
+    }
+    .article-content h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 36px 0 16px;
+    }
+    .article-content p {
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      color: #333;
+    }
+    .article-content ul, .article-content ol {
+      margin-bottom: 24px;
+      padding-left: 24px;
+    }
+    .article-content li {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+      color: #333;
+    }
+    .article-content code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+      font-size: 14px;
+    }
+    .article-content pre {
+      background: #1a1a1a;
+      color: #f5f5f5;
+      padding: 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: 14px;
+    }
+    .article-content blockquote {
+      border-left: 4px solid #1a1a1a;
+      padding-left: 20px;
+      margin: 24px 0;
+      font-style: italic;
+      color: #666;
+    }
+    .article-content .highlight {
+      background: linear-gradient(180deg, transparent 60%, rgba(255, 230, 0, 0.3) 60%);
+    }
+
+    /* Architecture Diagram */
+    .architecture-diagram {
+      background: #fafafa;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 32px;
+      margin: 32px 0;
+    }
+    .layer {
+      background: #fff;
+      border: 2px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .layer-title {
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+    .layer-components {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .component {
+      background: #f5f5f5;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Feature Box */
+    .feature-box {
+      background: #fafafa;
+      padding: 24px;
+      border-radius: 12px;
+      margin: 24px 0;
+    }
+    .feature-box h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .feature-box p {
+      font-size: 15px;
+      margin-bottom: 0;
+    }
+
+    /* Back Button */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 32px;
+      font-size: 15px;
+      color: #666;
+      font-weight: 500;
+    }
+    .back-link:hover { color: #1a1a1a; }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      padding: 40px 24px;
+      text-align: center;
+      margin-top: 80px;
+      border-top: 1px solid #e5e5e5;
+    }
+    footer p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .article-title { font-size: 32px; }
+      .article-content h2 { font-size: 24px; }
+      .article-content h3 { font-size: 20px; }
+      .article-content p { font-size: 16px; }
+      .architecture-diagram { padding: 20px; }
+      .layer { padding: 16px; }
+      .header-content { flex-direction: column; gap: 16px; }
+      .nav { gap: 20px; }
+      article { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">Pheglovog</a>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="projects.html">项目</a>
+        <a href="blog.html" class="active">博客</a>
+        <a href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <a href="blog.html" class="back-link">← 返回博客</a>
+
+      <header class="article-header">
+        <div class="article-meta">2026-02-05 · 阅读时间约 25 分钟</div>
+        <h1 class="article-title">AlphaGPT 技术架构</h1>
+        <div class="article-tags">
+          <span class="article-tag">AlphaGPT</span>
+          <span class="article-tag">量化交易</span>
+          <span class="article-tag">技术架构</span>
+          <span class="article-tag">Python</span>
+        </div>
+      </header>
+
+      <div class="article-content">
+        <p>AlphaGPT 是我开发的中国股市量化交易系统，采用现代化的微服务架构，结合传统量化方法和 AI 技术。本文详细介绍系统的技术架构设计。</p>
+
+        <h2>一、架构概览</h2>
+
+        <div class="architecture-diagram">
+          <div class="layer">
+            <div class="layer-title">📊 数据层 (Data Layer)</div>
+            <div class="layer-components">
+              <span class="component">Tushare</span>
+              <span class="component">Redis Cache</span>
+              <span class="component">PostgreSQL</span>
+              <span class="component">时序数据库</span>
+            </div>
+          </div>
+
+          <div class="layer">
+            <div class="layer-title">🧠 策略层 (Strategy Layer)</div>
+            <div class="layer-components">
+              <span class="component">因子计算</span>
+              <span class="component">信号生成</span>
+              <span class="component">AI 模型</span>
+              <span class="component">回测引擎</span>
+            </div>
+          </div>
+
+          <div class="layer">
+            <div class="layer-title">⚡ 执行层 (Execution Layer)</div>
+            <div class="layer-components">
+              <span class="component">订单管理</span>
+              <span class="component">风控引擎</span>
+              <span class="component">交易接口</span>
+              <span class="component">持仓管理</span>
+            </div>
+          </div>
+
+          <div class="layer">
+            <div class="layer-title">📈 监控层 (Monitor Layer)</div>
+            <div class="layer-components">
+              <span class="component">实时监控</span>
+              <span class="component">告警系统</span>
+              <span class="component">性能分析</span>
+              <span class="component">日志记录</span>
+            </div>
+          </div>
+        </div>
+
+        <h2>二、技术栈</h2>
+
+        <h3>后端框架</h3>
+        <ul>
+          <li><strong>FastAPI</strong> - 现代化的异步 Python Web 框架</li>
+          <li><strong>Pydantic</strong> - 数据验证和序列化</li>
+          <li><strong>SQLAlchemy</strong> - ORM 数据库操作</li>
+          <li><strong>Celery</strong> - 异步任务队列</li>
+        </ul>
+
+        <h3>数据存储</h3>
+        <ul>
+          <li><strong>PostgreSQL</strong> - 关系型数据库，存储交易记录、持仓信息</li>
+          <li><strong>Redis</strong> - 缓存热点数据，支持高频策略</li>
+          <li><strong>InfluxDB</strong> - 时序数据库，存储 K 线数据</li>
+          <li><strong>MinIO</strong> - 对象存储，存储模型文件和报告</li>
+        </ul>
+
+        <h3>机器学习</h3>
+        <ul>
+          <li><strong>PyTorch</strong> - 深度学习框架</li>
+          <li><strong>scikit-learn</strong> - 传统机器学习算法</li>
+          <li><strong>XGBoost</strong> - 梯度提升算法</li>
+          <li><strong>Ta-Lib</strong> - 技术指标计算</li>
+        </ul>
+
+        <h3>监控和日志</h3>
+        <ul>
+          <li><strong>Prometheus</strong> - 指标收集</li>
+          <li><strong>Grafana</strong> - 可视化监控面板</li>
+          <li><strong>ELK Stack</strong> - 日志收集和分析</li>
+          <li><strong>Sentry</strong> - 错误追踪</li>
+        </ul>
+
+        <h2>三、核心模块设计</h2>
+
+        <h3>1. 数据采集模块</h3>
+        <div class="feature-box">
+          <h4>功能</h4>
+          <p>从 Tushare 等数据源实时采集行情数据，包括日线、分钟线、Tick 数据，以及财务数据、新闻资讯等。</p>
+        </div>
+
+        <pre><code># 数据采集核心代码
+class DataCollector:
+    def __init__(self, api_token: str):
+        self.api = TushareAPI(api_token)
+        self.redis = RedisClient()
+        self.db = DatabaseClient()
+
+    async def collect_daily_data(self, ts_code: str):
+        """采集日线数据"""
+        df = await self.api.daily(ts_code=ts_code)
+
+        # 写入时序数据库
+        await self.db.insert_timeseries('daily_quotes', df)
+
+        # 更新缓存
+        for _, row in df.iterrows():
+            await self.redis.set(
+                f'daily:{ts_code}:{row["trade_date"]}',
+                row.to_json(),
+                ex=86400  # 缓存一天
+            )
+
+    async def collect_realtime(self, ts_code: str):
+        """采集实时行情"""
+        while True:
+            quote = await self.api.realtime(ts_code)
+            await self.redis.publish(f'realtime:{ts_code}', quote)
+            await asyncio.sleep(1)</code></pre>
+
+        <h3>2. 因子计算模块</h3>
+        <div class="feature-box">
+          <h4>功能</h4>
+          <p>计算各种量化因子，包括技术因子（均线、MACD、RSI）、基本面因子（PE、PB、ROE）、情绪因子（资金流向、换手率）等。</p>
+        </div>
+
+        <pre><code># 因子计算示例
+class FactorCalculator:
+    def __init__(self):
+        self.talib = TaLib()
+
+    async def calculate_momentum_factor(self, df: pd.DataFrame):
+        """动量因子：过去 N 日涨幅"""
+        close = df['close'].values
+        momentum = (close[-1] / close[-20] - 1) * 100  # 20日动量
+        return momentum
+
+    async def calculate_volatility_factor(self, df: pd.DataFrame):
+        """波动率因子：过去 N 日标准差"""
+        returns = df['close'].pct_change()
+        volatility = returns[-20:].std() * np.sqrt(252)  # 年化波动率
+        return volatility
+
+    async def calculate_volume_factor(self, df: pd.DataFrame):
+        """量价因子：成交量与价格关系"""
+        volume_ma = df['volume'].rolling(20).mean()
+        volume_ratio = df['volume'].iloc[-1] / volume_ma.iloc[-1]
+        return volume_ratio
+
+    async def calculate_all_factors(self, ts_code: str):
+        """计算所有因子"""
+        df = await self.get_daily_data(ts_code)
+
+        factors = {
+            'momentum_20': await self.calculate_momentum_factor(df),
+            'volatility': await self.calculate_volatility_factor(df),
+            'volume_ratio': await self.calculate_volume_factor(df),
+            # ... 更多因子
+        }
+
+        return factors</code></pre>
+
+        <h3>3. 信号生成模块</h3>
+        <div class="feature-box">
+          <h4>功能</h4>
+          <p>基于因子和 AI 模型生成交易信号，包括多空信号、开仓信号、平仓信号等。</p>
+        </div>
+
+        <pre><code># 信号生成
+class SignalGenerator:
+    def __init__(self, model: Model, threshold: float = 0.7):
+        self.model = model
+        self.threshold = threshold
+
+    async def generate_signal(self, factors: dict) -> dict:
+        """生成交易信号"""
+        # 模型预测
+        prediction = await self.model.predict(factors)
+
+        # 信号判断
+        if prediction['buy'] > self.threshold:
+            signal = 'buy'
+            strength = prediction['buy']
+        elif prediction['sell'] > self.threshold:
+            signal = 'sell'
+            strength = prediction['sell']
+        else:
+            signal = 'hold'
+            strength = 0.5
+
+        return {
+            'signal': signal,
+            'strength': strength,
+            'confidence': prediction['confidence'],
+            'timestamp': datetime.now()
+        }</code></pre>
+
+        <h3>4. 风控引擎</h3>
+        <div class="feature-box">
+          <h4>功能</h4>
+          <p>实时监控风险指标，包括仓位、回撤、单笔亏损等，自动触发风险控制措施。</p>
+        </div>
+
+        <pre><code># 风险控制
+class RiskEngine:
+    def __init__(self, config: RiskConfig):
+        self.max_position = config.max_position  # 最大仓位 80%
+        self.max_single_pos = config.max_single_pos  # 单股最大仓位 20%
+        self.stop_loss = config.stop_loss  # 止损线 -5%
+        self.max_drawdown = config.max_drawdown  # 最大回撤 -15%
+
+    async def check_position(self, order: Order) -> bool:
+        """检查仓位是否超限"""
+        current_position = await self.get_total_position()
+        new_position = current_position + order.amount * order.price
+
+        return new_position <= self.max_position
+
+    async def check_single_position(self, order: Order) -> bool:
+        """检查单股仓位"""
+        single_pos = await self.get_single_position(order.ts_code)
+        new_single_pos = single_pos + order.amount * order.price
+
+        return new_single_pos <= self.max_single_pos
+
+    async def check_stop_loss(self) -> List[str]:
+        """检查止损"""
+        positions = await self.get_all_positions()
+        stop_list = []
+
+        for pos in positions:
+            pnl = (pos.current_price - pos.avg_price) / pos.avg_price
+            if pnl <= self.stop_loss:
+                stop_list.append(pos.ts_code)
+
+        return stop_list</code></pre>
+
+        <h2>四、数据库设计</h2>
+
+        <h3>核心表结构</h3>
+        <pre><code>-- 交易记录表
+CREATE TABLE trades (
+    id SERIAL PRIMARY KEY,
+    ts_code VARCHAR(10) NOT NULL,
+    order_type VARCHAR(10) NOT NULL,  -- buy/sell
+    price DECIMAL(10, 2) NOT NULL,
+    amount INTEGER NOT NULL,
+    total_amount DECIMAL(15, 2) NOT NULL,
+    commission DECIMAL(10, 2),
+    status VARCHAR(20),
+    create_time TIMESTAMP DEFAULT NOW()
+);
+
+-- 持仓表
+CREATE TABLE positions (
+    id SERIAL PRIMARY KEY,
+    ts_code VARCHAR(10) UNIQUE NOT NULL,
+    amount INTEGER NOT NULL,
+    avg_price DECIMAL(10, 2) NOT NULL,
+    current_price DECIMAL(10, 2),
+    market_value DECIMAL(15, 2),
+    profit_loss DECIMAL(15, 2),
+    update_time TIMESTAMP DEFAULT NOW()
+);
+
+-- 策略表
+CREATE TABLE strategies (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    description TEXT,
+    params JSONB,
+    is_active BOOLEAN DEFAULT TRUE,
+    create_time TIMESTAMP DEFAULT NOW()
+);</code></pre>
+
+        <h2>五、回测引擎</h2>
+
+        <h3>回测流程</h3>
+        <ol>
+          <li>加载历史数据</li>
+          <li>计算因子</li>
+          <li>生成信号</li>
+          <li>模拟交易</li>
+          <li>计算绩效指标</li>
+          <li>生成报告</li>
+        </ol>
+
+        <pre><code># 回测引擎
+class BacktestEngine:
+    def __init__(self, strategy: Strategy, start_date: str, end_date: str):
+        self.strategy = strategy
+        self.start_date = start_date
+        self.end_date = end_date
+        self.trades = []
+        self.positions = {}
+
+    async def run(self):
+        """运行回测"""
+        # 加载数据
+        data = await self.load_data()
+
+        # 按日期迭代
+        for date, daily_data in data.items():
+            # 计算因子
+            factors = await self.calculate_factors(daily_data)
+
+            # 生成信号
+            signal = await self.strategy.generate_signal(factors)
+
+            # 执行交易
+            await self.execute_trade(date, signal, daily_data)
+
+            # 更新持仓
+            await self.update_positions(date, daily_data)
+
+        # 计算绩效
+        metrics = await self.calculate_metrics()
+
+        return metrics
+
+    async def calculate_metrics(self) -> dict:
+        """计算绩效指标"""
+        returns = self.calculate_returns()
+
+        metrics = {
+            'total_return': returns.sum(),
+            'annual_return': returns.mean() * 252,
+            'sharpe_ratio': self.calculate_sharpe(returns),
+            'max_drawdown': self.calculate_max_drawdown(returns),
+            'win_rate': self.calculate_win_rate()
+        }
+
+        return metrics</code></pre>
+
+        <h2>六、AI 模型集成</h2>
+
+        <h3>模型类型</h3>
+        <ul>
+          <li><strong>时间序列预测</strong> - LSTM、Transformer</li>
+          <li><strong>分类模型</strong> - XGBoost、Random Forest</li>
+          <li><strong>强化学习</strong> - DQN、PPO</li>
+          <li><strong>图神经网络</strong> - 股票关系建模</li>
+        </ul>
+
+        <pre><code># AI 模型预测
+class TradingModel:
+    def __init__(self, model_path: str):
+        self.model = self.load_model(model_path)
+
+    async def predict(self, features: dict) -> dict:
+        """模型预测"""
+        # 特征预处理
+        x = self.preprocess(features)
+
+        # 模型推理
+        prediction = self.model.predict(x)
+
+        # 后处理
+        result = {
+            'buy': float(prediction[0]),
+            'sell': float(prediction[1]),
+            'hold': float(prediction[2]),
+            'confidence': float(np.max(prediction))
+        }
+
+        return result</code></pre>
+
+        <h2>七、部署架构</h2>
+
+        <h3>Docker Compose 部署</h3>
+        <pre><code>version: '3.8'
+
+services:
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/alphagpt
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+
+  worker:
+    build: ./worker
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/alphagpt
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=alphagpt
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    volumes:
+      - redis_data:/data
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  postgres_data:
+  redis_data:
+  grafana_data:</code></pre>
+
+        <h2>八、监控和告警</h2>
+
+        <h3>关键指标</h3>
+        <ul>
+          <li><strong>系统健康</strong> - CPU、内存、磁盘使用率</li>
+          <li><strong>交易指标</strong> - 每日盈亏、持仓、回撤</li>
+          <li><strong>策略指标</strong> - 胜率、夏普比率、最大回撤</li>
+          <li><strong>数据指标</strong> - 数据延迟、数据完整性</li>
+        </ul>
+
+        <h3>告警规则</h3>
+        <ul>
+          <li>系统故障（服务异常、数据库不可用）</li>
+          <li>交易异常（异常大额交易、频繁撤单）</li>
+          <li>风险告警（回撤超限、仓位过高）</li>
+          <li>数据异常（数据缺失、价格异常）</li>
+        </ul>
+
+        <h2>九、安全措施</h2>
+
+        <ul>
+          <li><strong>API 密钥加密</strong> - 使用环境变量和密钥管理服务</li>
+          <li><strong>访问控制</strong> - 基于 JWT 的身份认证和授权</li>
+          <li><strong>数据加密</strong> - 传输层 TLS 加密，数据库加密存储</li>
+          <li><strong>审计日志</strong> - 记录所有关键操作</li>
+        </ul>
+
+        <h2>十、性能优化</h2>
+
+        <ul>
+          <li><strong>异步 I/O</strong> - FastAPI + asyncio 实现高并发</li>
+          <li><strong>缓存策略</strong> - Redis 缓存热点数据</li>
+          <li><strong>数据库优化</strong> - 索引优化、查询优化、连接池</li>
+          <li><strong>CDN 加速</strong> - 静态资源 CDN 分发</li>
+        </ul>
+
+        <hr style="margin: 60px 0; border: none; border-top: 1px solid #e5e5e5;">
+
+        <p><strong>项目地址：</strong> <a href="https://github.com/Pheglovog/AlphaGPT" target="_blank">github.com/Pheglovog/AlphaGPT</a></p>
+        <p><strong>相关文章：</strong></p>
+        <ul>
+          <li><a href="quant-trading-guide.html">量化交易入门指南</a></li>
+          <li><a href="fastapi-best-practices.html">FastAPI 最佳实践和异步编程指南</a></li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>© 2026 Pheglovog</p>
+  </footer>
+</body>
+</html>

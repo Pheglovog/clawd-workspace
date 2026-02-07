@@ -1,0 +1,84 @@
+{{- if .Site.Params.giscus.reactionsEnabled -}}
+<div class="reactions" id="article-reactions">
+  <div class="reaction-buttons">
+    <button class="reaction-btn" data-reaction="thumbs_up" type="button">
+      {{ partial "icon.html" (dict "name" "thumb" "class" "icon") }}
+      <span id="count-thumbs_up">0</span>
+    </button>
+    <button class="reaction-btn" data-reaction="heart" type="button">
+      {{ partial "icon.html" (dict "name" "heart" "class" "icon") }}
+      <span id="count-heart">0</span>
+    </button>
+    <button class="reaction-btn" data-reaction="rocket" type="button">
+      {{ partial "icon.html" (dict "name" "rocket" "class" "icon") }}
+      <span id="count-rocket">0</span>
+    </button>
+    <button class="reaction-btn" data-reaction="eyes" type="button">
+      {{ partial "icon.html" (dict "name" "eye" "class" "icon") }}
+      <span id="count-eyes">0</span>
+    </button>
+  </div>
+  <div class="reaction-message" id="reaction-message"></div>
+</div>
+
+<script>
+  (function() {
+    const buttons = document.querySelectorAll('.reaction-btn');
+    const messageEl = document.getElementById('reaction-message');
+
+    const labels = {
+      thumbs_up: '点赞',
+      heart: '喜欢',
+      rocket: '很棒',
+      eyes: '关注'
+    };
+
+    const getReactions = () => {
+      const path = window.location.pathname;
+      const data = localStorage.getItem(`reactions_${path}`);
+      return data ? JSON.parse(data) : {};
+    };
+
+    const saveReactions = (reactions) => {
+      const path = window.location.pathname;
+      localStorage.setItem(`reactions_${path}`, JSON.stringify(reactions));
+    };
+
+    const updateDisplay = () => {
+      const reactions = getReactions();
+      for (const [reaction, count] of Object.entries(reactions)) {
+        const countEl = document.getElementById(`count-${reaction}`);
+        if (countEl) {
+          countEl.textContent = count;
+        }
+      }
+    };
+
+    const addReaction = (reaction) => {
+      const reactions = getReactions();
+      if (!reactions[reaction]) {
+        reactions[reaction] = 0;
+      }
+      reactions[reaction]++;
+      saveReactions(reactions);
+      updateDisplay();
+      showMessage(`已记录：${labels[reaction] || reaction}`);
+    };
+
+    const showMessage = (text) => {
+      if (messageEl) {
+        messageEl.textContent = text;
+      }
+    };
+
+    updateDisplay();
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const reaction = this.getAttribute('data-reaction');
+        addReaction(reaction);
+      });
+    });
+  })();
+</script>
+{{- end }}

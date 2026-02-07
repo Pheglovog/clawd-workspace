@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/pheglovog-site/">
+  <title>关于 - Pheglovog</title>
+  <meta name="description" content="关于 Pheglovog">
+  <meta name="author" content="Pheglovog">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, "SF Pro Text", BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #1a1a1a;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav a {
+      font-size: 0.9375rem;
+      color: #666;
+      font-weight: 500;
+    }
+    .nav a.active {
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+    .hero {
+      text-align: center;
+      padding: 3rem 0;
+      background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    }
+    .hero h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+    .hero p {
+      font-size: 1.0625rem;
+      color: #666;
+    }
+    .content {
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .section h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+      border-bottom: 1px solid #e5e5e5;
+      padding-bottom: 0.75rem;
+    }
+    .info-item {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+    }
+    .info-item h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+    .info-item p {
+      font-size: 0.9375rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .skill-tag {
+      background: #f0f9ff;
+      color: #1a1a1a;
+      padding: 0.375rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 8px;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 0.875rem;
+      color: #666;
+    }
+    .footer {
+      background: #fff;
+      padding: 2rem 0;
+      text-align: center;
+      margin-top: 4rem;
+      border-top: 1px solid #e5e5e5;
+    }
+    .footer p {
+      color: #666;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer a {
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    .homepage-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1.25rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff !important;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .homepage-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <a href="/" class="logo">Pheglovog</a>
+      <nav class="nav">
+        <a href="/" class="active">首页</a>
+        <a href="/posts/">博客</a>
+        <a href="/projects.html">项目</a>
+        <a href="/about.html" class="active">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>关于</h1>
+      <p>探索技术与项目实践</p>
+    </section>
+
+    <div class="content">
+      <section class="section">
+        <h2>👋 基本信息</h2>
+        <div class="info-item">
+          <h3>Pheglovog（黄士航）</h3>
+          <p>西北工业大学 2023 应届本科生</p>
+          <p>全栈开发者，专注于量化交易、区块链和 AI</p>
+          <p style="margin-top: 1rem;">
+            <a href="https://pheglovog.github.io/" target="_blank" class="homepage-link">
+              🏠 访问我的个人主页
+            </a>
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>🌱 联系方式</h2>
+        <div class="info-item">
+          <h3>GitHub</h3>
+          <p><a href="https://github.com/Pheglovog" target="_blank">github.com/Pheglovog</a></p>
+        </div>
+        <div class="info-item">
+          <h3>邮箱</h3>
+          <p><a href="mailto:3042569263@qq.com">3042569263@qq.com</a></p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>💻 技术栈</h2>
+        <div class="skills">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Solidity</span>
+          <span class="skill-tag">Vue.js</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Go</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Kubernetes</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>🎯 专长领域</h2>
+        <div class="skills">
+          <span class="skill-tag">量化交易</span>
+          <span class="skill-tag">区块链开发</span>
+          <span class="skill-tag">AI 应用开发</span>
+          <span class="skill-tag">全栈开发</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>📊 项目统计</h2>
+        <div class="stats">
+          <div class="stat-item">
+            <span class="stat-number">10+</span>
+            <span class="stat-label">开源项目</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">3+</span>
+            <span class="stat-label">技术文章</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5+</span>
+            <span class="stat-label">star 项目</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Pheglovog</p>
+    <a href="https://github.com/Pheglovog" target="_blank">GitHub</a>
+  </footer>
+</body>
+</html>

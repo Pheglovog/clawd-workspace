@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CarLife - 去中心化汽车生活平台，利用区块链技术打造汽车行业的信任基础设施">
+  <meta name="keywords" content="CarLife, 区块链, 智能合约, 以太坊, DeFi, Web3">
+  <meta name="author" content="Pheglovog">
+  <title>CarLife - 去中心化汽车生活平台 - Pheglovog</title>
+  <link rel="canonical" href="https://pheglovog.github.io/pheglovog-site/articles/carlife-intro.html">
+
+  <style>
+    /* 全局样式 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "SF Pro Text", BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+    .nav { display: flex; gap: 32px; }
+    .nav a {
+      font-size: 15px;
+      color: #666;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+    .nav a:hover { color: #1a1a1a; }
+    .nav a.active { color: #1a1a1a; font-weight: 600; }
+
+    /* Article */
+    article {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      background: #fff;
+    }
+    .article-header {
+      margin-bottom: 40px;
+    }
+    .article-meta {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 16px;
+    }
+    .article-title {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    .article-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .article-tag {
+      background: #fafafa;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* Content */
+    .article-content h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 48px 0 20px;
+      letter-spacing: -0.5px;
+    }
+    .article-content h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 36px 0 16px;
+    }
+    .article-content p {
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      color: #333;
+    }
+    .article-content ul, .article-content ol {
+      margin-bottom: 24px;
+      padding-left: 24px;
+    }
+    .article-content li {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+      color: #333;
+    }
+    .article-content code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+      font-size: 14px;
+    }
+    .article-content pre {
+      background: #1a1a1a;
+      color: #f5f5f5;
+      padding: 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: 14px;
+    }
+    .article-content blockquote {
+      border-left: 4px solid #1a1a1a;
+      padding-left: 20px;
+      margin: 24px 0;
+      font-style: italic;
+      color: #666;
+    }
+    .article-content .highlight {
+      background: linear-gradient(180deg, transparent 60%, rgba(255, 230, 0, 0.3) 60%);
+    }
+
+    /* Feature Box */
+    .feature-box {
+      background: #fafafa;
+      padding: 24px;
+      border-radius: 12px;
+      margin: 24px 0;
+    }
+    .feature-box h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .feature-box p {
+      font-size: 15px;
+      margin-bottom: 0;
+    }
+
+    /* Back Button */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 32px;
+      font-size: 15px;
+      color: #666;
+      font-weight: 500;
+    }
+    .back-link:hover { color: #1a1a1a; }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      padding: 40px 24px;
+      text-align: center;
+      margin-top: 80px;
+      border-top: 1px solid #e5e5e5;
+    }
+    footer p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .article-title { font-size: 32px; }
+      .article-content h2 { font-size: 24px; }
+      .article-content h3 { font-size: 20px; }
+      .article-content p { font-size: 16px; }
+      .header-content { flex-direction: column; gap: 16px; }
+      .nav { gap: 20px; }
+      article { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">Pheglovog</a>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="projects.html">项目</a>
+        <a href="blog.html" class="active">博客</a>
+        <a href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <a href="blog.html" class="back-link">← 返回博客</a>
+
+      <header class="article-header">
+        <div class="article-meta">2026-02-05 · 阅读时间约 15 分钟</div>
+        <h1 class="article-title">CarLife - 去中心化汽车生活平台</h1>
+        <div class="article-tags">
+          <span class="article-tag">CarLife</span>
+          <span class="article-tag">区块链</span>
+          <span class="article-tag">智能合约</span>
+          <span class="article-tag">Web3</span>
+        </div>
+      </header>
+
+      <div class="article-content">
+        <p>CarLife 是我正在开发的去中心化汽车生活平台，利用区块链技术打造汽车行业的信任基础设施。项目旨在解决传统汽车服务行业中的信息不对称、信任缺失、中介费用高等问题。</p>
+
+        <h2>一、项目背景</h2>
+
+        <p>汽车行业是一个巨大的市场，但在许多环节存在痛点：</p>
+        <ul>
+          <li><strong>二手车交易</strong> - 车辆历史记录不透明，买家难以了解真实车况</li>
+          <li><strong>维修保养</strong> - 维修记录分散，缺乏统一可追溯的记录</li>
+          <li><strong>保险理赔</strong> - 流程复杂，理赔周期长</li>
+          <li><strong>租赁共享</strong> - 信用评估困难，押金问题突出</li>
+        </ul>
+
+        <blockquote>区块链的不可篡改性和透明性，正好可以解决这些信任问题。</blockquote>
+
+        <h2>二、核心功能</h2>
+
+        <h3>1. 车辆数字身份</h3>
+        <div class="feature-box">
+          <h4>NFT 车辆证书</h4>
+          <p>每辆车都有一个唯一的 NFT 证书，记录车辆的生产信息、维修记录、事故记录、过户记录等。所有数据上链，不可篡改。</p>
+        </div>
+
+        <h3>2. 维修保养记录</h3>
+        <div class="feature-box">
+          <h4>区块链账本</h4>
+          <p>维修店可以将保养和维修记录写入区块链，车主和潜在买家可以查看完整的历史记录，确保信息的真实性。</p>
+        </div>
+
+        <h3>3. 智能合约保险</h3>
+        <div class="feature-box">
+          <h4>自动化理赔</h4>
+          <p>基于智能合约的车险产品，发生事故后，通过预言机触发自动理赔，提高效率，降低成本。</p>
+        </div>
+
+        <h3>4. 信用评分系统</h3>
+        <div class="feature-box">
+          <h4>链上声誉</h4>
+          <p>车主的驾驶行为、信用记录、交易历史等构成链上信用评分，用于租赁、保险、金融等场景。</p>
+        </div>
+
+        <h2>三、技术架构</h2>
+
+        <h3>区块链层</h3>
+        <ul>
+          <li><strong>网络</strong> - Ethereum 主网 + Layer2（Optimism）降低 Gas 费</li>
+          <li><strong>智能合约</strong> - Solidity + OpenZeppelin 标准库</li>
+          <li><strong>代币经济</strong> - CAR 原生代币用于支付、质押、治理</li>
+        </ul>
+
+        <h3>应用层</h3>
+        <ul>
+          <li><strong>Web3 前端</strong> - React + ethers.js / viem</li>
+          <li><strong>后端服务</strong> - Python FastAPI + The Graph 数据索引</li>
+          <li><strong>预言机</strong> - Chainlink 提供外部数据输入</li>
+        </ul>
+
+        <h3>合约核心代码示例</h3>
+        <pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract CarNFT is ERC721, Ownable {
+    struct CarInfo {
+        string brand;
+        string model;
+        uint256 year;
+        uint256 mileage;
+        string[] serviceRecords;
+    }
+
+    mapping(uint256 => CarInfo) public carInfos;
+    uint256 private _nextTokenId;
+
+    event CarMinted(uint256 indexed tokenId, address indexed owner);
+    event ServiceRecordAdded(uint256 indexed tokenId, string record);
+
+    constructor() ERC721("CarLife", "CAR") {}
+
+    function mintCar(
+        string memory brand,
+        string memory model,
+        uint256 year
+    ) external returns (uint256) {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(msg.sender, tokenId);
+
+        carInfos[tokenId] = CarInfo({
+            brand: brand,
+            model: model,
+            year: year,
+            mileage: 0,
+            serviceRecords: new string[](0)
+        });
+
+        emit CarMinted(tokenId, msg.sender);
+        return tokenId;
+    }
+
+    function addServiceRecord(uint256 tokenId, string memory record) external {
+        require(_ownerOf(tokenId) == msg.sender, "Not owner");
+        carInfos[tokenId].serviceRecords.push(record);
+        emit ServiceRecordAdded(tokenId, record);
+    }
+
+    function updateMileage(uint256 tokenId, uint256 newMileage) external {
+        require(_ownerOf(tokenId) == msg.sender, "Not owner");
+        require(newMileage >= carInfos[tokenId].mileage, "Invalid mileage");
+        carInfos[tokenId].mileage = newMileage;
+    }
+}</code></pre>
+
+        <h2>四、代币经济模型</h2>
+
+        <h3>CAR 代币用途</h3>
+        <ul>
+          <li><strong>服务支付</strong> - 支付维修、保养、保险等服务费用</li>
+          <li><strong>质押奖励</strong> - 质押 CAR 获得平台收益分成</li>
+          <li><strong>治理投票</strong> - 参与平台治理决策</li>
+          <li><strong>手续费折扣</strong> - 持有 CAR 享受手续费折扣</li>
+        </ul>
+
+        <h3>代币分配</h3>
+        <ul>
+          <li><strong>团队</strong> - 20%（4 年线性释放）</li>
+          <li><strong>社区</strong> - 40%（空投 + 激励）</li>
+          <li><strong>投资机构</strong> - 15%</li>
+          <li><strong>生态基金</strong> - 15%</li>
+          <li><strong>顾问</strong> - 10%</li>
+        </ul>
+
+        <h2>五、开发路线图</h2>
+
+        <h3>Phase 1: MVP（已完成）</h3>
+        <ul>
+          <li>基础智能合约开发</li>
+          <li>车辆 NFT 铸造</li>
+          <li>维修记录上链</li>
+        </ul>
+
+        <h3>Phase 2: 测试网部署（进行中）</h3>
+        <ul>
+          <li>部署到 Sepolia 测试网</li>
+          <li>前端界面开发</li>
+          <li>完整功能测试</li>
+        </ul>
+
+        <h3>Phase 3: 主网上线（规划中）</h3>
+        <ul>
+          <li>部署到以太坊主网</li>
+          <li>Layer2 集成</li>
+          <li>代币发行</li>
+        </ul>
+
+        <h3>Phase 4: 生态扩展（未来）</h3>
+        <ul>
+          <li>与保险公司合作</li>
+          <li>接入维修店网络</li>
+          <li>二手车交易平台</li>
+        </ul>
+
+        <h2>六、安全考虑</h2>
+
+        <blockquote>在 DeFi 领域，安全是第一要务。我们采取了多层安全措施：</blockquote>
+
+        <ul>
+          <li><strong>代码审计</strong> - 第三方安全审计（CertiK、SlowMist）</li>
+          <li><strong>漏洞奖励</strong> - 开放漏洞奖励计划</li>
+          <li><strong>权限管理</strong> - 多签钱包管理敏感操作</li>
+          <li><strong>紧急暂停</strong> - 合约内置紧急暂停机制</li>
+        </ul>
+
+        <h2>七、项目进展</h2>
+
+        <p>目前项目已完成：</p>
+        <ul>
+          <li>✅ 智能合约开发（车辆 NFT、维修记录）</li>
+          <li>✅ 测试用例编写（测试覆盖率 > 90%）</li>
+          <li>✅ 技术文档编写</li>
+          <li>🔄 测试网部署</li>
+          <li>⏳ 前端开发</li>
+          <li>⏳ 代码审计</li>
+        </ul>
+
+        <h2>八、未来展望</h2>
+
+        <p>CarLife 的愿景是成为汽车行业的 Web3 基础设施。未来将拓展更多场景：</p>
+        <ul>
+          <li><strong>汽车共享</strong> - 去中心化的 P2P 汽车租赁</li>
+          <li><strong>车联网</strong> - 结合 IoT 技术，实时车况上链</li>
+          <li><strong>碳中和</strong> - 记录碳排放，支持碳积分交易</li>
+          <li><strong>自动驾驶</strong> - 为自动驾驶提供可信的数据基础设施</li>
+        </ul>
+
+        <hr style="margin: 60px 0; border: none; border-top: 1px solid #e5e5e5;">
+
+        <p><strong>项目地址：</strong> <a href="https://github.com/Pheglovog/CarLife" target="_blank">github.com/Pheglovog/CarLife</a></p>
+        <p><strong>相关文章：</strong></p>
+        <ul>
+          <li><a href="web3py-guide.html">Web3.py 完整开发指南</a></li>
+          <li><a href="https://github.com/Pheglovog/clawd-workspace/blob/main/docs/blockchain-expert-research.md" target="_blank">区块链领域专家研究</a></li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>© 2026 Pheglovog</p>
+  </footer>
+</body>
+</html>

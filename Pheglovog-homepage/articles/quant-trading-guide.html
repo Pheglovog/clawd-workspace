@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="量化交易入门指南 - 从零开始学习量化交易的基础知识、策略开发和风险管理">
+  <meta name="keywords" content="量化交易, 算法交易, Python, AlphaGPT, 策略开发, 风险管理">
+  <meta name="author" content="Pheglovog">
+  <title>量化交易入门指南 - Pheglovog</title>
+  <link rel="canonical" href="https://pheglovog.github.io/pheglovog-site/articles/quant-trading-guide.html">
+
+  <style>
+    /* 全局样式 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "SF Pro Text", BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+    .nav { display: flex; gap: 32px; }
+    .nav a {
+      font-size: 15px;
+      color: #666;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+    .nav a:hover { color: #1a1a1a; }
+    .nav a.active { color: #1a1a1a; font-weight: 600; }
+
+    /* Article */
+    article {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      background: #fff;
+    }
+    .article-header {
+      margin-bottom: 40px;
+    }
+    .article-meta {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 16px;
+    }
+    .article-title {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    .article-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .article-tag {
+      background: #fafafa;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* Content */
+    .article-content h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 48px 0 20px;
+      letter-spacing: -0.5px;
+    }
+    .article-content h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 36px 0 16px;
+    }
+    .article-content p {
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      color: #333;
+    }
+    .article-content ul, .article-content ol {
+      margin-bottom: 24px;
+      padding-left: 24px;
+    }
+    .article-content li {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+      color: #333;
+    }
+    .article-content code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+      font-size: 14px;
+    }
+    .article-content pre {
+      background: #1a1a1a;
+      color: #f5f5f5;
+      padding: 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: 14px;
+    }
+    .article-content blockquote {
+      border-left: 4px solid #1a1a1a;
+      padding-left: 20px;
+      margin: 24px 0;
+      font-style: italic;
+      color: #666;
+    }
+    .article-content .highlight {
+      background: linear-gradient(180deg, transparent 60%, rgba(255, 230, 0, 0.3) 60%);
+    }
+
+    /* Back Button */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 32px;
+      font-size: 15px;
+      color: #666;
+      font-weight: 500;
+    }
+    .back-link:hover { color: #1a1a1a; }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      padding: 40px 24px;
+      text-align: center;
+      margin-top: 80px;
+      border-top: 1px solid #e5e5e5;
+    }
+    footer p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .article-title { font-size: 32px; }
+      .article-content h2 { font-size: 24px; }
+      .article-content h3 { font-size: 20px; }
+      .article-content p { font-size: 16px; }
+      .header-content { flex-direction: column; gap: 16px; }
+      .nav { gap: 20px; }
+      article { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">Pheglovog</a>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="projects.html">项目</a>
+        <a href="blog.html" class="active">博客</a>
+        <a href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <a href="blog.html" class="back-link">← 返回博客</a>
+
+      <header class="article-header">
+        <div class="article-meta">2026-02-05 · 阅读时间约 20 分钟</div>
+        <h1 class="article-title">量化交易入门指南</h1>
+        <div class="article-tags">
+          <span class="article-tag">量化交易</span>
+          <span class="article-tag">算法交易</span>
+          <span class="article-tag">Python</span>
+          <span class="article-tag">AlphaGPT</span>
+        </div>
+      </header>
+
+      <div class="article-content">
+        <p>量化交易（Quantitative Trading）是利用数学模型、统计学方法和计算机技术来制定和执行交易决策的方式。它将交易从主观判断转变为<span class="highlight">数据驱动的科学过程</span>。</p>
+
+        <h2>一、什么是量化交易</h2>
+
+        <p>量化交易的核心是将交易策略形式化为计算机可执行的算法。这些策略通常基于：</p>
+        <ul>
+          <li><strong>历史数据分析</strong> - 挖掘市场中的规律和模式</li>
+          <li><strong>数学模型</strong> - 使用统计、机器学习等方法建立预测模型</li>
+          <li><strong>自动化执行</strong> - 通过程序自动执行买卖操作</li>
+          <li><strong>风险控制</strong> - 严格的风险管理规则</li>
+        </ul>
+
+        <h2>二、量化交易的优势</h2>
+
+        <h3>1. 消除情绪干扰</h3>
+        <p>人工交易容易受到贪婪、恐惧等情绪影响，而量化交易完全基于预设规则，避免了情绪化决策。</p>
+
+        <h3>2. 处理海量数据</h3>
+        <p>量化系统可以同时分析成百上千只股票、多个时间周期、各种技术指标，这是人工无法做到的。</p>
+
+        <h3>3. 执行速度快</h3>
+        <p>计算机可以在毫秒级别内完成分析、决策和执行，捕捉稍纵即逝的市场机会。</p>
+
+        <h3>4. 可回测验证</h3>
+        <p>策略可以在历史数据上进行回测，验证其有效性，避免在实盘中冒险。</p>
+
+        <h2>三、量化交易策略类型</h2>
+
+        <h3>1. 趋势跟踪策略</h3>
+        <p>识别市场趋势，顺势而为。常用技术指标包括移动平均线、MACD、布林带等。</p>
+
+        <h3>2. 均值回归策略</h3>
+        <p>基于价格回归均值的理论，当价格偏离平均值较大时进行反向操作。</p>
+
+        <h3>3. 套利策略</h3>
+        <p>利用不同市场或不同合约之间的价差进行无风险或低风险套利。</p>
+
+        <h3>4. 事件驱动策略</h3>
+        <p>基于公司公告、财报发布、政策变化等事件对股价影响进行交易。</p>
+
+        <h3>5. 统计套利</h3>
+        <p>利用统计学方法发现股票之间的相关关系，构建配对交易或多空组合。</p>
+
+        <h2>四、技术栈和工具</h2>
+
+        <h3>编程语言</h3>
+        <ul>
+          <li><strong>Python</strong> - 最流行的量化交易语言，丰富的库和社区支持</li>
+          <li><strong>C++</strong> - 高频交易的首选，极致的性能</li>
+          <li><strong>R</strong> - 强大的统计分析能力</li>
+          <li><strong>MATLAB</strong> - 金融工程常用工具</li>
+        </ul>
+
+        <h3>Python 量化库</h3>
+        <pre><code>import pandas as pd          # 数据处理
+import numpy as np           # 数值计算
+import matplotlib.pyplot as plt  # 可视化
+import talib                # 技术指标
+import backtrader           # 回测框架
+import zipline              # 回测框架
+from tushare import pro      # 中国股市数据</code></pre>
+
+        <h3>数据源</h3>
+        <ul>
+          <li><strong>Tushare</strong> - 中国股市数据（推荐）</li>
+          <li><strong>AKShare</strong> - 开源财经数据接口</li>
+          <li><strong>Baostock</strong> - 免费证券数据平台</li>
+          <li><strong>Wind/Choice</strong> - 专业付费数据源</li>
+        </ul>
+
+        <h2>五、量化交易开发流程</h2>
+
+        <h3>1. 数据获取</h3>
+        <p>获取高质量的历史数据是第一步，包括价格、成交量、财务数据等。</p>
+
+        <h3>2. 数据清洗</h3>
+        <p>处理缺失值、异常值，调整股票价格（复权处理）等。</p>
+
+        <h3>3. 特征工程</h3>
+        <p>计算技术指标、构建因子，提取有用的预测信号。</p>
+
+        <h3>4. 策略设计</h3>
+        <p>基于市场认知和数据分析设计交易逻辑，包括入场、出场、仓位管理。</p>
+
+        <h3>5. 回测验证</h3>
+        <p>在历史数据上验证策略表现，关注收益率、最大回撤、夏普比率等指标。</p>
+
+        <h3>6. 参数优化</h3>
+        <p>寻找策略的最优参数组合，但要注意避免过拟合。</p>
+
+        <h3>7. 风险管理</h3>
+        <p>设置止损止盈、仓位控制、最大回撤限制等。</p>
+
+        <h3>8. 实盘部署</h3>
+        <p>将策略部署到实盘环境，进行模拟交易或实盘交易。</p>
+
+        <h2>六、风险管理</h2>
+
+        <blockquote>风险管理是量化交易的生命线。没有风险控制的策略，再好的收益率都是空谈。</blockquote>
+
+        <h3>1. 仓位控制</h3>
+        <p>单一股票持仓不超过总资金的 10-20%，避免过度集中。</p>
+
+        <h3>2. 止损止盈</h3>
+        <p>设置严格的止损线（如 -5%）和止盈线（如 +20%）。</p>
+
+        <h3>3. 最大回撤控制</h3>
+        <p>当账户净值回撤达到设定阈值（如 15%）时，暂停交易或降低仓位。</p>
+
+        <h3>4. 相关性管理</h3>
+        <p>避免同时持有高度相关的股票，分散投资降低风险。</p>
+
+        <h2>七、常见误区</h2>
+
+        <h3>1. 过度优化</h3>
+        <p>在历史数据上过度拟合，导致实盘表现糟糕。</p>
+
+        <h3>2. 忽视交易成本</h3>
+        <p>手续费、滑点等交易成本会显著侵蚀收益。</p>
+
+        <h3>3. 样本外验证不足</h3>
+        <p>只用历史数据优化，没有预留样本外数据进行验证。</p>
+
+        <h3>4. 过度复杂化</h3>
+        <p>简单的策略往往比复杂的策略更可靠。</p>
+
+        <h2>八、学习路径建议</h2>
+
+        <ol>
+          <li><strong>基础知识</strong> - 学习金融知识、统计学、概率论</li>
+          <li><strong>编程技能</strong> - 掌握 Python 数据分析库</li>
+          <li><strong>策略学习</strong> - 研究经典策略，理解其原理</li>
+          <li><strong>回测实践</strong> - 使用回测框架验证策略</li>
+          <li><strong>实盘模拟</strong> - 先模拟交易，验证稳定性</li>
+          <li><strong>小资金实盘</strong> - 小资金试水，积累经验</li>
+        </ol>
+
+        <h2>九、AlphaGPT 项目介绍</h2>
+
+        <p>AlphaGPT 是我正在开发的中国股市量化交易系统，结合了 AI 技术和传统量化方法。项目特点：</p>
+        <ul>
+          <li><strong>多策略融合</strong> - 趋势跟踪 + 均值回归 + AI 预测</li>
+          <li><strong>实时数据</strong> - 接入实时行情数据</li>
+          <li><strong>智能风控</strong> - 动态仓位管理和风险预警</li>
+          <li><strong>回测平台</strong> - 完整的策略回测和优化工具</li>
+        </ul>
+
+        <p>项目正在持续开发中，欢迎关注！</p>
+
+        <hr style="margin: 60px 0; border: none; border-top: 1px solid #e5e5e5;">
+
+        <p><strong>相关文章：</strong></p>
+        <ul>
+          <li><a href="alphquant-quantitative-trading-complete-guide.html">AlphaQuant 量化交易完整指南</a></li>
+          <li><a href="blog-system-optimization.html">博客系统优化笔记</a></li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>© 2026 Pheglovog</p>
+  </footer>
+</body>
+</html>

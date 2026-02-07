@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/pheglovog-site/">
+  <meta name="description" content="FastAPI 最佳实践 - 异步编程、项目结构规范、依赖注入和中间件、性能优化技巧、安全性实现和部署指南">
+  <meta name="keywords" content="FastAPI, 异步编程, Python, Web框架, 性能优化, 安全">
+  <meta name="author" content="Pheglovog">
+  <title>FastAPI 最佳实践 - Pheglovog</title>
+  <link rel="canonical" href="https://pheglovog.github.io/pheglovog-site/articles/fastapi-best-practices.html">
+
+  <style>
+    /* 全局样式 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, "SF Pro Text", BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif; background: #fafafa; color: #1a1a1a; line-height: 1.7; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header { background: #fff; border-bottom: 1px solid #e5e5e5; padding: 20px 0; position: sticky; top: 0; z-index: 100; }
+    .header-content { max-width: 800px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+    .nav { display: flex; gap: 32px; }
+    .nav a { font-size: 15px; color: #666; transition: color 0.2s; font-weight: 500; }
+    .nav a:hover { color: #1a1a1a; }
+    .nav a.active { color: #1a1a1a; font-weight: 600; }
+
+    /* Article */
+    .article { padding: 60px 0 80px; }
+    .article-header { text-align: center; margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px solid #e5e5e5; }
+    .article-title { font-size: 42px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px; letter-spacing: -1px; }
+    .article-meta { font-size: 15px; color: #999; margin-bottom: 8px; }
+    .article-date { display: inline-block; margin-right: 24px; }
+    .article-tags { display: inline-block; }
+    .tag { display: inline-block; background: #f0f0f0; padding: 6px 16px; border-radius: 20px; font-size: 14px; color: #666; font-weight: 500; margin-right: 8px; }
+    .article-excerpt { font-size: 18px; color: #666; margin-bottom: 32px; text-align: center; letter-spacing: -0.5px; }
+
+    /* Content */
+    .content h2 { font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px; }
+    .content h3 { font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 16px; letter-spacing: -0.5px; }
+    .content p { font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 16px; }
+    .content ul, .content ol { margin-bottom: 24px; padding-left: 24px; }
+    .content li { font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 12px; }
+    .content code { background: #f5f5f5; padding: 2px 8px; border-radius: 4px; font-family: "SF Mono", "Monaco", "Courier New", monospace; font-size: 14px; color: #e83e8c; }
+    .content pre { background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; border: 1px solid #e5e5e5; }
+    .content pre code { background: none; padding: 0; color: inherit; }
+    .content blockquote { border-left: 4px solid #1a1a1a; padding-left: 20px; margin: 24px 0; font-style: italic; color: #666; }
+    .content .tip { background: #f0f9ff; border-left: 4px solid #2563eb; padding: 16px 20px; margin: 24px 0; border-radius: 8px; }
+    .content .tip strong { color: #2563eb; }
+
+    /* Navigation */
+    .article-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 60px; padding-top: 32px; border-top: 1px solid #e5e5e5; }
+    .nav-prev, .nav-next { padding: 12px 24px; background: #fff; border: 1px solid #e5e5e5; border-radius: 6px; transition: all 0.2s; font-weight: 500; }
+    .nav-prev:hover, .nav-next:hover { background: #fafafa; border-color: #1a1a1a; }
+    .nav-prev:disabled, .nav-next:disabled { opacity: 0.5; cursor: not-allowed; }
+    .nav-home { text-align: center; }
+    .nav-home a { display: inline-block; padding: 12px 24px; background: #1a1a1a; color: #fff; border-radius: 6px; transition: all 0.2s; font-weight: 500; }
+    .nav-home a:hover { background: #000; transform: translateY(-2px); }
+
+    /* Footer */
+    footer { background: #fff; padding: 40px 24px; text-align: center; margin-top: 80px; border-top: 1px solid #e5e5e5; }
+    footer p { color: #666; font-size: 14px; margin-bottom: 8px; font-weight: 400; }
+    footer a { color: #1a1a1a; font-weight: 500; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .article-title { font-size: 32px; letter-spacing: -0.5px; }
+      .article-excerpt { font-size: 16px; }
+      .content h2 { font-size: 24px; letter-spacing: -0.5px; }
+      .content h3 { font-size: 20px; }
+      .article-nav { flex-direction: column; gap: 16px; }
+      .nav-prev, .nav-next, .nav-home a { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">Pheglovog</a>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="projects.html" style="color: #1a1a1a; font-weight: 600;">项目</a>
+        <a href="blog.html" class="active">博客</a>
+        <a href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="article">
+      <header class="article-header">
+        <h1 class="article-title">FastAPI 最佳实践</h1>
+        <div class="article-meta">
+          <span class="article-date">📅 2026-02-03</span>
+          <div class="article-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Web框架</span>
+            <span class="tag">异步编程</span>
+          </div>
+        </div>
+        <p class="article-excerpt">深入探讨 FastAPI 的异步编程最佳实践、项目结构规范、依赖注入和中间件、性能优化技巧、安全性实现和部署指南。</p>
+      </header>
+
+      <div class="content">
+        <h2>📚 引言</h2>
+        <p>FastAPI 是一个现代、快速（高性能）的 Web 框架，用于基于标准 Python 类型提示使用 Python 3.6+ 构建 API。它基于 Starlette 和 Pydantic，提供了出色的性能和易用性。</p>
+        <p>本文将从多个维度介绍 FastAPI 的最佳实践，帮助你构建高性能、可维护、安全的 Web API。</p>
+
+        <h2>🎯 目标读者</h2>
+        <p>本文适合以下读者：</p>
+        <ul>
+          <li>有 Python 基础的开发者</li>
+          <li>想要学习 FastAPI 的 Web 开发者</li>
+          <li>想要优化现有 FastAPI 应用的开发者</li>
+          <li>对异步编程感兴趣的开发者</li>
+        </ul>
+
+        <h2>📁 项目结构规范</h2>
+        <p>良好的项目结构是可维护应用的基础。以下是一个推荐的 FastAPI 项目结构：</p>
+        <pre><code>myapp/
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── v1/
+│   │   │   ├── __init__.py
+│   │   │   ├── endpoints.py
+│   │   │   └── models.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   └── security.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── user_service.py
+│   │   └── auth_service.py
+│   └── models/
+│       ├── __init__.py
+│       ├── user.py
+│       └── item.py
+├── tests/
+│   ├── __init__.py
+│   ├── test_api.py
+│   └── test_services.py
+├── alembic/
+│   └── versions/
+├── scripts/
+├── requirements.txt
+└── main.py</code></pre>
+        <p>这个结构的优势：</p>
+        <ul>
+          <li><strong>清晰的分层</strong>：API、核心逻辑、服务、模型分离</li>
+          <li><strong>可测试性</strong>：每个模块都可以独立测试</li>
+          <li><strong>可扩展性</strong>：易于添加新功能而不影响现有代码</li>
+          <li><strong>关注点分离</strong>：路由、业务逻辑、数据模型分离</li>
+        </ul>
+
+        <h2>⚡ 异步编程最佳实践</h2>
+        <p>FastAPI 原生支持异步编程，这是其高性能的关键。以下是一些最佳实践：</p>
+
+        <h3>使用 async/await</h3>
+        <pre><code>from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    # 使用异步数据库查询
+    item = await get_item_from_db(item_id)
+    return item
+
+@app.post("/items/")
+async def create_item(item: Item):
+    # 使用异步数据库操作
+    item = await create_item_in_db(item)
+    return item</code></pre>
+
+        <h3>异步数据库操作</h3>
+        <p>使用异步数据库驱动，如 <code>asyncpg</code> (PostgreSQL)、<code>motor</code> (MongoDB) 或 <code>aiomysql</code> (MySQL)。</p>
+        <pre><code>import asyncpg
+
+async def get_item_from_db(item_id: int):
+    conn = await asyncpg.connect("postgresql://user:password@localhost/dbname")
+    try:
+        async with conn.cursor() as cur:
+            await cur.execute("SELECT * FROM items WHERE id = $1", item_id)
+            return await cur.fetchone()
+    finally:
+        await conn.close()</code></pre>
+
+        <h3>避免阻塞操作</h3>
+        <p>在异步函数中避免使用阻塞的同步操作。如果必须使用同步库，将其封装在 <code>asyncio.to_thread()</code> 中。</p>
+        <pre><code>import asyncio
+
+# 将同步函数封装为异步
+def sync_function():
+    # 同步操作
+    pass
+
+async def async_function():
+    # 在线程池中运行同步函数
+    result = await asyncio.to_thread(sync_function)
+    return result</code></pre>
+
+        <div class="tip">
+          <strong>💡 提示：</strong> 使用 <code>asyncio.to_thread()</code> 时要注意线程安全问题，避免并发访问共享资源。
+        </div>
+
+        <h2>🔗 依赖注入</h2>
+        <p>FastAPI 提供了强大的依赖注入系统。使用依赖注入可以让你的代码更易于测试和维护。</p>
+
+        <pre><code>from fastapi import Depends, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+async def get_db():
+    # 依赖函数
+    return db
+
+class Item(BaseModel):
+    name: str
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int, db: Session = Depends(get_db)):
+    # 使用注入的依赖
+    item = db.query(Item).filter(Item.id == item_id).first()
+    return item</code></pre>
+
+        <h3>使用 Yield 依赖</h3>
+        <p>对于需要清理的依赖（如数据库连接），使用 <code>yield</code> 依赖：</p>
+        <pre><code>from typing import AsyncGenerator
+from fastapi import Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
+    async with AsyncSessionLocal() as session:
+        yield session
+        # 自动清理</code></pre>
+
+        <h2>🔧 中间件</h2>
+        <p>FastAPI 支持自定义中间件，可以在请求处理之前或之后执行代码。</p>
+
+        <pre><code>from fastapi import FastAPI, Request
+from starlette.middleware.base import BaseHTTPMiddleware
+import time
+
+class TimingMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        start_time = time.time()
+        response = await call_next(request)
+        process_time = (time.time() - start_time) * 1000
+        response.headers["X-Process-Time"] = str(process_time)
+        return response
+
+app = FastAPI()
+app.add_middleware(TimingMiddleware)</code></pre>
+
+        <h2>⚡ 性能优化</h2>
+        <p>以下是一些性能优化技巧：</p>
+
+        <ul>
+          <li><strong>使用异步数据库</strong>：如前面所述</li>
+          <li><strong>启用响应压缩</strong>：使用 <code>gzip</code> 或 <code>brotli</code> 压缩响应</li>
+          <li><strong>使用连接池</strong>：数据库连接池可以显著提高性能</li>
+          <li><strong>缓存结果</strong>：对于频繁访问的数据，使用缓存</li>
+          <li><strong>批量操作</strong>：尽可能批量处理数据，减少数据库查询</li>
+        </ul>
+
+        <h2>🔒 安全最佳实践</h2>
+        <p>安全性是 Web 应用的核心。以下是一些安全最佳实践：</p>
+
+        <h3>输入验证</h3>
+        <p>使用 Pydantic 进行严格的输入验证：</p>
+        <pre><code>from pydantic import BaseModel, EmailStr, validator
+
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str = Field(..., min_length=8)
+    age: int = Field(..., ge=0, le=120)
+
+    @validator('password')
+    def password_strength(cls, v):
+        if len(v) < 8:
+            raise ValueError('Password must be at least 8 characters')
+        return v</code></pre>
+
+        <h3>使用 HTTPS</h3>
+        <p>在生产环境中始终使用 HTTPS。FastAPI 可以与 Let's Encrypt 等服务集成，实现自动 SSL 证书。</p>
+
+        <h3>身份验证和授权</h3>
+        <p>使用 FastAPI 的安全依赖，如 <code>OAuth2PasswordBearer</code>：</p>
+        <pre><code>from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends, HTTPException, status
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        return username
+    except JWTError:
+        raise credentials_exception
+
+@app.get("/users/me")
+async def read_users_me(current_user: str = Depends(get_current_user)):
+    return {"username": current_user}</code></pre>
+
+        <h3>防止常见攻击</h3>
+        <ul>
+          <li><strong>SQL 注入</strong>：使用参数化查询或 ORM</li>
+          <li><strong>XSS</strong>：对用户输入进行转义</li>
+          <li><strong>CSRF</strong>：使用 CSRF Token</li>
+          <li><strong>速率限制</strong>：防止暴力破解和 DDoS 攻击</li>
+        </ul>
+
+        <h2>📦 部署指南</h2>
+        <p>以下是一些部署最佳实践：</p>
+
+        <h3>使用 ASGI 服务器</h3>
+        <p>FastAPI 是 ASGI 框架，推荐使用 Uvicorn 或 Gunicorn：</p>
+        <pre><code># 使用 Uvicorn
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+# 使用 Gunicorn + Uvicorn workers
+gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker</code></pre>
+
+        <h3>Docker 部署</h3>
+        <pre><code>FROM python:3.9
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre>
+
+        <h3>Kubernetes 部署</h3>
+        <p>对于生产环境，推荐使用 Kubernetes 进行容器编排：</p>
+        <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-app
+    spec:
+      containers:
+      - name: fastapi-app
+        image: fastapi-app:latest
+        ports:
+        - containerPort: 8000</code></pre>
+
+        <h2>📊 监控和日志</h2>
+        <p>良好的监控和日志记录是生产应用的关键：</p>
+
+        <h3>结构化日志</h3>
+        <pre><code>import logging
+import sys
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("app.log"),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+
+logger = logging.getLogger(__name__)
+
+@app.get("/items/")
+async def read_items():
+    logger.info("Fetching all items")
+    items = await get_items_from_db()
+    logger.info(f"Found {len(items)} items")
+    return items</code></pre>
+
+        <h3>性能监控</h3>
+        <p>使用 Prometheus + Grafana 进行性能监控：</p>
+        <pre><code>from prometheus_client import Counter, Histogram
+
+# 创建指标
+REQUEST_COUNT = Counter('fastapi_requests', 'Total requests', ['method', 'endpoint'])
+REQUEST_LATENCY = Histogram('fastapi_request_latency_seconds', 'Request latency', ['method', 'endpoint'])
+
+@app.middleware("http")
+async def add_metrics(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+
+    # 记录指标
+    REQUEST_COUNT.labels(method=request.method, endpoint=request.url.path).inc()
+    REQUEST_LATENCY.labels(method=request.method, endpoint=request.url.path).observe(process_time)
+
+    return response</code></pre>
+
+        <h2>🎓 学习资源</h2>
+        <ul>
+          <li><a href="https://fastapi.tiangolo.com/zh/" target="_blank">FastAPI 官方文档（中文）</a></li>
+          <li><a href="https://fastapi.tiangolo.com/" target="_blank">FastAPI 官方文档（英文）</a></li>
+          <li><a href="https://github.com/tiangolo/fastapi" target="_blank">FastAPI GitHub 仓库</a></li>
+          <li><a href="https://github.com/Pheglovog/clawd-workspace" target="_blank">我的学习笔记</a></li>
+        </ul>
+
+        <h2>📝 总结</h2>
+        <p>本文介绍了 FastAPI 的多个方面的最佳实践：</p>
+        <ol>
+          <li>项目结构规范</li>
+          <li>异步编程最佳实践</li>
+          <li>依赖注入</li>
+          <li>中间件</li>
+          <li>性能优化</li>
+          <li>安全最佳实践</li>
+          <li>部署指南</li>
+          <li>监控和日志</li>
+        </ol>
+        <p>通过遵循这些最佳实践，你可以构建出高性能、可维护、安全的 FastAPI 应用。</p>
+      </div>
+
+      <nav class="article-nav">
+        <a href="blog.html" class="nav-prev">← 返回博客</a>
+        <div class="nav-home">
+          <a href="index.html">返回首页</a>
+        </div>
+        <a href="#" class="nav-next" disabled>下一篇 →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer>
+    <p>© 2026 Pheglovog</p>
+    <div>
+      <a href="https://github.com/Pheglovog" target="_blank">GitHub</a>
+    </div>
+  </footer>
+</body>
+</html>

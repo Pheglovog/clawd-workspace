@@ -1,0 +1,64 @@
+<div class="share">
+  <span class="share-label">分享</span>
+  <div class="share-actions">
+    <button class="share-btn" data-share="copy" type="button" aria-label="复制链接">
+      {{ partial "icon.html" (dict "name" "link" "class" "icon") }}
+      复制
+    </button>
+    <a class="share-btn" href="https://twitter.com/intent/tweet?text={{ .Title }}&url={{ .Permalink }}" target="_blank" rel="noopener" aria-label="分享到 X">
+      {{ partial "icon.html" (dict "name" "x" "class" "icon") }}
+      X
+    </a>
+    <a class="share-btn" href="https://service.weibo.com/share/share.php?url={{ .Permalink }}&title={{ .Title }}" target="_blank" rel="noopener" aria-label="分享到微博">
+      {{ partial "icon.html" (dict "name" "message" "class" "icon") }}
+      微博
+    </a>
+    <a class="share-btn" href="{{ .Permalink }}" target="_blank" rel="noopener" aria-label="打开页面">
+      {{ partial "icon.html" (dict "name" "external" "class" "icon") }}
+      打开
+    </a>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const copyBtn = document.querySelector('[data-share="copy"]');
+
+    if (!copyBtn) return;
+
+    const showToast = (message) => {
+      const toast = document.createElement('div');
+      toast.className = 'share-toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('is-visible'));
+      setTimeout(() => toast.classList.remove('is-visible'), 2500);
+      setTimeout(() => toast.remove(), 3000);
+    };
+
+    const fallbackCopy = (value) => {
+      const textArea = document.createElement('textarea');
+      textArea.value = value;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-9999px';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast('链接已复制');
+      } catch (err) {
+        showToast('复制失败，请手动复制');
+      }
+      document.body.removeChild(textArea);
+    };
+
+    copyBtn.addEventListener('click', () => {
+      const url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => showToast('链接已复制')).catch(() => fallbackCopy(url));
+      } else {
+        fallbackCopy(url);
+      }
+    });
+  })();
+</script>

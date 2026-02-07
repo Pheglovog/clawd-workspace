@@ -1,0 +1,11 @@
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+    <nav class="nav" aria-label="主导航">
+      {{- range .Site.Menus.main }}
+        {{- $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) -}}
+        <a class="nav-link{{ if $active }} is-active{{ end }}" href="{{ .URL | relURL }}">{{ .Name }}</a>
+      {{- end }}
+    </nav>
+  </div>
+</header>

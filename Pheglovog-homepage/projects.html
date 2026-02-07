@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/pheglovog-site/">
+  <title>项目 - Pheglovog</title>
+  <meta name="description" content="Pheglovog 的项目展示">
+  <meta name="author" content="Pheglovog">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, "SF Pro Text", BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #1a1a1a;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav a {
+      font-size: 0.9375rem;
+      color: #666;
+      font-weight: 500;
+    }
+    .nav a.active {
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+    .hero {
+      text-align: center;
+      padding: 3rem 0;
+      background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    }
+    .hero h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+    .hero p {
+      font-size: 1.0625rem;
+      color: #666;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    .card:hover {
+      border-color: #1a1a1a;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
+    }
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 1rem;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+      color: #1a1a1a;
+    }
+    .card-desc {
+      font-size: 0.9375rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .card-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .tag {
+      background: #fafafa;
+      padding: 0.375rem 0.875rem;
+      border-radius: 4px;
+      font-size: 0.8125rem;
+      color: #666;
+      font-weight: 500;
+      border: 1px solid #f0f0f0;
+    }
+    .tag:hover {
+      background: #1a1a1a;
+      color: #fff;
+      border-color: #1a1a1a;
+    }
+    .card-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid #f0f0f0;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: #666;
+    }
+    .stat-label {
+      font-weight: 500;
+    }
+    .stat-value {
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .footer {
+      background: #fff;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      margin-top: 4rem;
+      border-top: 1px solid #e5e5e5;
+    }
+    .footer p {
+      color: #666;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer a {
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <a href="/" class="logo">Pheglovog</a>
+      <nav class="nav">
+        <a href="/" class="active">首页</a>
+        <a href="/posts/">博客</a>
+        <a href="/projects.html" class="active">项目</a>
+        <a href="/about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>精选项目</h1>
+      <p>探索我的开源项目和技术实践</p>
+    </section>
+
+    <section class="grid">
+      <a href="https://github.com/Pheglovog/AlphaGPT" target="_blank" class="card">
+        <span class="card-icon">📊</span>
+        <h2 class="card-title">AlphaGPT</h2>
+        <p class="card-desc">基于符号回归的中国股市量化交易系统，支持因子挖掘、策略回测、深度学习模型。集成 Tushare Pro API，提供真实数据支持。</p>
+        <div class="card-tags">
+          <span class="tag">Python</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">Tushare</span>
+          <span class="tag">量化交易</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat-item"><span class="stat-label">GitHub</span> <span class="stat-value">Pheglovog/AlphaGPT</span></div>
+          <div class="stat-item"><span class="stat-label">语言</span> <span class="stat-value">Python</span></div>
+          <div class="stat-item"><span class="stat-label">星标</span> <span class="stat-value">⭐⭐⭐</span></div>
+        </div>
+      </a>
+
+      <a href="https://github.com/Pheglovog/carlife-eth" target="_blank" class="card">
+        <span class="card-icon">🔗</span>
+        <h2 class="card-title">CarLife</h2>
+        <p class="card-desc">基于 Ethereum 的汽车生活平台，结合车辆 NFT、服务商注册系统和评价功能。支持车辆历史记录、维修追踪和里程证明。</p>
+        <div class="card-tags">
+          <span class="tag">Solidity</span>
+          <span class="tag">ERC721</span>
+          <span class="tag">Web3</span>
+          <span class="tag">智能合约</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat-item"><span class="stat-label">GitHub</span> <span class="stat-value">Pheglovog/carlife-eth</span></div>
+          <div class="stat-item"><span class="stat-label">网络</span> <span class="stat-value">Sepolia</span></div>
+          <div class="stat-item"><span class="stat-label">星标</span> <span class="stat-value">⭐⭐⭐⭐</span></div>
+        </div>
+      </a>
+
+      <a href="https://github.com/Pheglovog/CurrencyExchange" target="_blank" class="card">
+        <span class="card-icon">💱</span>
+        <h2 class="card-title">CurrencyExchange</h2>
+        <p class="card-desc">去中心化的加密货币交易系统，支持实时汇率和多币种交易。集成多个交易提供商，提供最佳价格和最低手续费。</p>
+        <div class="card-tags">
+          <span class="tag">Vue 3</span>
+          <span class="tag">Go</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">DeFi</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat-item"><span class="stat-label">GitHub</span> <span class="stat-value">Pheglovog/CurrencyExchange</span></div>
+          <div class="stat-item"><span class="stat-label">语言</span> <span class="stat-value">Vue/Go</span></div>
+          <div class="stat-item"><span class="stat-label">星标</span> <span class="stat-value">⭐⭐</span></div>
+        </div>
+      </a>
+
+      <a href="https://github.com/Pheglovog/travel-planner-agent" target="_blank" class="card">
+        <span class="card-icon">🌸</span>
+        <h2 class="card-title">Travel Planner</h2>
+        <p class="card-desc">基于 LangChain 的智能旅游规划助手，支持多 Agent 协作、实时天气、地图集成和行程单生成。提供个性化旅游建议和优化路线。</p>
+        <div class="card-tags">
+          <span class="tag">Python</span>
+          <span class="tag">LangChain</span>
+          <span class="tag">OpenAI</span>
+          <span class="tag">AI Agent</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat-item"><span class="stat-label">GitHub</span> <span class="stat-value">Pheglovog/travel-planner-agent</span></div>
+          <div class="stat-item"><span class="stat-label">语言</span> <span class="stat-value">Python</span></div>
+          <div class="stat-item"><span class="stat-label">星标</span> <span class="stat-value">⭐⭐⭐⭐</span></div>
+        </div>
+      </a>
+
+      <a href="https://github.com/Pheglovog/clawd-workspace" target="_blank" class="card">
+        <span class="card-icon">📚</span>
+        <h2 class="card-title">Clawd Workspace</h2>
+        <p class="card-desc">我的工作空间，包含所有技术文档、学习笔记、项目规划和代码示例。涵盖区块链、AI、全栈开发等多个领域。</p>
+        <div class="card-tags">
+          <span class="tag">文档</span>
+          <span class="tag">学习</span>
+          <span class="tag">开源</span>
+          <span class="tag">技术</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat-item"><span class="stat-label">GitHub</span> <span class="stat-value">Pheglovog/clawd-workspace</span></div>
+          <div class="stat-item"><span class="stat-label">文档数</span> <span class="stat-value">50+</span></div>
+          <div class="stat-item"><span class="stat-label">主题</span> <span class="stat-value">10+</span></div>
+        </div>
+      </a>
+
+      <a href="https://github.com/Pheglovog/pheglovog-site" target="_blank" class="card">
+        <span class="card-icon">🌐</span>
+        <h2 class="card-title">Pheglovog Site</h2>
+        <p class="card-desc">我的个人主页，包含项目展示、博客文章和关于页面。采用简洁的设计风格，注重内容展示和用户体验。</p>
+        <div class="card-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">GitHub Pages</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat-item"><span class="stat-label">GitHub</span> <span class="stat-value">Pheglovog/pheglovog-site</span></div>
+          <div class="stat-item"><span class="stat-label">页面</span> <span class="stat-value">4+</span></div>
+          <div class="stat-item"><span class="stat-label">星标</span> <span class="stat-value">⭐⭐⭐</span></div>
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Pheglovog</p>
+    <a href="https://github.com/Pheglovog" target="_blank">GitHub</a>
+  </footer>
+</body>
+</html>

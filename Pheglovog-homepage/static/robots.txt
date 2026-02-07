@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pheglovog.github.io/pheglovog-site/sitemap.xml

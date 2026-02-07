@@ -1,0 +1,13 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <p class="footer-note">© {{ now.Year }} {{ .Site.Title }} · {{ .Site.Params.description }}</p>
+    <div class="footer-links">
+      {{- with .Site.Params.social.github }}
+        <a href="{{ . }}" target="_blank" rel="noopener">GitHub</a>
+      {{- end }}
+      {{- with .Site.Params.social.email }}
+        <a href="mailto:{{ . }}">{{ . }}</a>
+      {{- end }}
+    </div>
+  </div>
+</footer>

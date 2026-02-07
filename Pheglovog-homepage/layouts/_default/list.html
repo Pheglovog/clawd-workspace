@@ -1,0 +1,85 @@
+{{ define "main" }}
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">{{ .Site.Title }}</p>
+      <h1 class="page-title">{{ .Title }}</h1>
+      {{- with .Params.description }}
+        <p class="page-subtitle">{{ . }}</p>
+      {{- end }}
+    </div>
+  </section>
+
+  {{- if .Content }}
+    <section class="section">
+      <div class="container container--reading">
+        <div class="prose">
+          {{ .Content }}
+        </div>
+      </div>
+    </section>
+  {{- end }}
+
+  {{- if .Pages }}
+    <section class="section">
+      <div class="container">
+        {{- $pages := .Pages.ByDate.Reverse -}}
+        {{- $pager := .Paginate $pages (or .Site.Params.blog.paginate 10) -}}
+        <div class="post-list">
+          {{- range $pager.Pages }}
+            <article class="post-item">
+              <a href="{{ .RelPermalink }}" class="post-title">{{ .Title }}</a>
+              <p class="post-excerpt">{{ .Summary | plainify | truncate 160 }}</p>
+              <div class="post-meta">
+                <span class="meta-item">
+                  {{ partial "icon.html" (dict "name" "calendar" "class" "icon") }}
+                  {{ .Date.Format .Site.Params.blog.dateFormat }}
+                </span>
+                {{- if .ReadingTime }}
+                  <span class="meta-item">
+                    {{ partial "icon.html" (dict "name" "clock" "class" "icon") }}
+                    {{ .ReadingTime }} 分钟阅读
+                  </span>
+                {{- end }}
+                {{- with .Params.categories }}
+                  <span class="meta-item">
+                    {{ partial "icon.html" (dict "name" "folder" "class" "icon") }}
+                    {{ index . 0 }}
+                  </span>
+                {{- end }}
+              </div>
+              {{- with .Params.tags }}
+                <div class="card-tags">
+                  {{- range first 3 . }}
+                    <span class="tag">{{ . }}</span>
+                  {{- end }}
+                </div>
+              {{- end }}
+            </article>
+          {{- end }}
+        </div>
+
+        {{- if gt $pager.TotalPages 1 }}
+          <nav class="pagination" aria-label="分页">
+            {{- if $pager.HasPrev }}
+              <a href="{{ $pager.Prev.URL }}">
+                {{ partial "icon.html" (dict "name" "arrow-left" "class" "icon") }}
+                上一页
+              </a>
+            {{- else }}
+              <span>上一页</span>
+            {{- end }}
+            <span class="is-active">第 {{ $pager.PageNumber }} / {{ $pager.TotalPages }} 页</span>
+            {{- if $pager.HasNext }}
+              <a href="{{ $pager.Next.URL }}">
+                下一页
+                {{ partial "icon.html" (dict "name" "arrow-right" "class" "icon") }}
+              </a>
+            {{- else }}
+              <span>下一页</span>
+            {{- end }}
+          </nav>
+        {{- end }}
+      </div>
+    </section>
+  {{- end }}
+{{ end }}

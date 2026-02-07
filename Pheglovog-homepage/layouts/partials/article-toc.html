@@ -1,0 +1,27 @@
+{{- if and .TableOfContents .Site.Params.blog.showTOC -}}
+<div class="toc" id="toc">
+  <button class="toc-toggle" type="button" aria-expanded="false">
+    {{ partial "icon.html" (dict "name" "list" "class" "icon") }}
+    目录
+  </button>
+  <div class="toc-nav">
+    <div class="toc-title">目录</div>
+    <div class="toc-list">
+      {{ .TableOfContents }}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const toc = document.getElementById('toc');
+    const toggle = toc ? toc.querySelector('.toc-toggle') : null;
+    if (!toc || !toggle) return;
+
+    toggle.addEventListener('click', () => {
+      const open = toc.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+</script>
+{{- end }}

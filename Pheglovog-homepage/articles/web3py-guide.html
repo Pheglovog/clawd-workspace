@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/pheglovog-site/">
+  <meta name="description" content="Web3.py 完整开发指南 - 账户管理、私钥安全、智能合约交互、事件监听、多网络支持和 Gas 优化">
+  <meta name="keywords" content="Web3.py, 以太坊, 智能合约, 区块链, Python, 开发">
+  <meta name="author" content="Pheglovog">
+  <title>Web3.py 开发指南 - Pheglovog</title>
+  <link rel="canonical" href="https://pheglovog.github.io/pheglovog-site/articles/web3py-guide.html">
+</head>
+<body style="font-family: -apple-system, 'SF Pro Text', BlinkMacSystemFont, 'Microsoft YaHei', '微软雅黑', 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', sans-serif; background: #fafafa; color: #1a1a1a; line-height: 1.7; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+  <a href="../index.html" style="text-decoration: none; color: inherit; display: block; padding: 20px 0; border-bottom: 1px solid #e5e5e5;">← 返回博客</a>
+
+  <article style="padding: 60px 0 80px; max-width: 800px; margin: 0 auto;">
+    <header style="text-align: center; margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px solid #e5e5e5;">
+      <h1 style="font-size: 42px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px; letter-spacing: -1px;">Web3.py 开发指南</h1>
+      <div style="font-size: 15px; color: #666; margin-bottom: 32px; letter-spacing: -0.5px;">
+        <span style="display: inline-block; margin-right: 24px;">📅 2026-02-03</span>
+        <div style="display: inline-block;">
+          <span style="display: inline-block; background: #f0f9ff; color: #1976d2; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; margin-right: 8px;">Python</span>
+          <span style="display: inline-block; background: #f0fdf4; color: #16a34a; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; margin-right: 8px;">Web3</span>
+          <span style="display: inline-block; background: #fff7ed; color: #dc2626; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 500;">区块链</span>
+        </div>
+      </div>
+      <p style="font-size: 18px; color: #666; margin-bottom: 32px; letter-spacing: -0.5px;">Web3.py 的完整开发指南，涵盖账户管理、私钥安全、智能合约交互、事件监听、多网络支持和 Gas 优化。</p>
+    </header>
+
+    <div style="color: #333;">
+      <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px;">📚 引言</h2>
+      <p style="font-size: 16px; line-height: 1.8; margin-bottom: 16px;">Web3.py 是 Python 的以太坊区块链交互库，提供了与以太坊节点交互的完整功能。本文将从多个维度介绍 Web3.py 的开发指南，帮助你构建安全的 Web3 应用。</p>
+
+      <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px;">🎯 目标读者</h2>
+      <p style="font-size: 16px; line-height: 1.8; margin-bottom: 16px;">本文适合以下读者：</p>
+      <ul style="margin-bottom: 32px; padding-left: 24px;">
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;">想要学习 Web3.py 的区块链开发者</li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;">想要构建 DApp（去中心化应用）的开发者</li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;">对智能合约交互感兴趣的开发者</li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;">想要学习 Gas 优化的开发者</li>
+      </ul>
+
+      <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px;">🔑 账户管理与私钥安全</h2>
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">创建钱包账户</h3>
+      <p style="font-size: 16px; line-height: 1.8; margin-bottom: 16px;">Web3.py 可以轻松创建新的以太坊账户：</p>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">from web3 import Web3
+from eth_account import Account
+
+# 创建账户
+account = Account.create()
+print(f"Account address: {account.address}")
+print(f"Private key: {account.key.hex()}")
+
+# 创建多个账户
+accounts = [Account.create() for _ in range(5)]
+for i, account in enumerate(accounts):
+    print(f"Account {i+1}: {account.address}")</pre>
+
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">私钥安全管理</h3>
+      <p style="font-size: 16px; line-height: 1.8; margin-bottom: 16px;">私钥是访问钱包的核心，必须妥善保管：</p>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">import os
+from web3 import Web3
+from eth_account import Account
+
+# 1. 从环境变量读取私钥（推荐）
+private_key = os.environ.get("PRIVATE_KEY")
+if not private_key:
+    raise ValueError("PRIVATE_KEY not found in environment variables")
+
+# 2. 从 Keystore 文件读取（更安全）
+from eth_account import Account
+account = Account.from_key(private_key)
+encrypted_json = account.encrypt("your_password")
+
+# 3. 使用 Hardware Wallet（最安全）
+from eth_account import Account
+# 使用 Ledger 或 Trezor 硬件钱包
+
+# 4. 私钥分割存储（不要这样，除非必要）
+# 将私钥分成多个部分存储在不同位置（仅用于演示）</pre>
+      <div style="background: #fff7ed; border-left: 4px solid #dc2626; padding: 16px 20px; margin: 24px 0; border-radius: 8px;">
+        <strong style="color: #dc2626;">⚠️ 安全提示：</strong>
+        <p style="font-size: 14px; color: #7f1d1d; margin-bottom: 8px;">永远不要将私钥硬编码在代码中或提交到版本控制系统。始终使用环境变量或安全的密钥管理系统。</p>
+      </div>
+
+      <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px;">⛓️ 连接到以太坊网络</h2>
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">使用不同的 Provider</h3>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">from web3 import Web3
+
+# 1. HTTP Provider
+web3 = Web3(Web3.HTTPProvider("https://mainnet.infura.io/v3/YOUR_PROJECT_ID"))
+
+# 2. WebSocket Provider（推荐）
+web3 = Web3(Web3.WebsocketProvider("wss://mainnet.infura.io/ws/v3/YOUR_PROJECT_ID"))
+
+# 3. IPC Provider（本地节点）
+web3 = Web3(Web3.IPCProvider("/path/to/geth.ipc"))
+
+# 4. 自定义 Provider
+from web3.providers.rpc import HTTPProvider
+custom_provider = HTTPProvider("https://your-custom-node.com")
+web3 = Web3(custom_provider)</pre>
+
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">多网络支持</h3>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">from web3 import Web3
+
+# 配置多个网络
+networks = {
+    "mainnet": "https://mainnet.infura.io/v3/YOUR_PROJECT_ID",
+    "goerli": "https://goerli.infura.io/v3/YOUR_PROJECT_ID",
+    "sepolia": "https://sepolia.infura.io/v3/YOUR_PROJECT_ID",
+    "polygon": "https://polygon-mainnet.infura.io/v3/YOUR_PROJECT_ID"
+}
+
+# 创建 Web3 实例
+web3_mainnet = Web3(Web3.HTTPProvider(networks["mainnet"]))
+web3_goerli = Web3(Web3.HTTPProvider(networks["goerli"]))
+web3_sepolia = Web3(Web3.HTTPProvider(networks["sepolia"]))
+
+# 动态切换网络
+def get_web3(network_name: str):
+    return Web3(Web3.HTTPProvider(networks[network_name]))
+
+# 使用示例
+web3 = get_web3("mainnet")
+latest_block = web3.eth.get_block('latest')
+print(f"Latest block on mainnet: {latest_block['number']}")</pre>
+
+      <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px;">📝 智能合约交互</h2>
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">部署合约</h3>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">from web3 import Web3
+from solcx import compile_source
+
+# 1. 编译合约
+with open("MyContract.sol", "r") as f:
+    source_code = f.read()
+
+compiled_sol = compile_source(source_code)
+bytecode = compiled_sol['<stdin>']['MyContract']['bin']
+
+# 2. 部署合约
+web3 = Web3(Web3.HTTPProvider("https://mainnet.infura.io/v3/YOUR_PROJECT_ID"))
+account = Account.from_key(os.environ.get("PRIVATE_KEY"))
+
+# 3. 估算 Gas
+estimate_gas = web3.eth.estimate_gas({
+    "from": account.address,
+    "data": bytecode,
+    "value": 0
+})
+
+# 4. 发送交易
+transaction = {
+    "from": account.address,
+    "data": bytecode,
+    "gas": estimate_gas + 10000,  # 添加一些缓冲
+    "gasPrice": web3.eth.gas_price,
+    "nonce": web3.eth.get_transaction_count(account.address)
+}
+
+# 5. 签名并发送交易
+signed_txn = web3.eth.account.sign_transaction(transaction, account.key)
+tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+
+# 6. 等待交易确认
+receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+print(f"Contract deployed at: {receipt.contractAddress}")</pre>
+
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">调用合约函数</h3>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">from web3 import Web3
+
+# 假设我们已经有一个部署的合约地址
+contract_address = "0x12345678901234567890123456789012"
+contract_abi = [...]  # 从合约 ABI 文件读取
+
+# 创建合约实例
+contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+
+# 调用合约函数
+result = contract.functions.myFunction().call()
+print(f"Function result: {result}")
+
+# 发送交易（写操作）
+account = Account.from_key(os.environ.get("PRIVATE_KEY"))
+txn_hash = contract.functions.myFunction(123).transact({
+    "from": account.address,
+    "gas": 200000
+})
+
+# 等待交易确认
+receipt = web3.eth.wait_for_transaction_receipt(txn_hash)
+print(f"Transaction receipt: {receipt}")</pre>
+
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">批量合约调用</h3>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">from web3 import Web3
+from web3.contract import Contract
+
+# 批量调用合约函数（Multicall 风格）
+def batch_call(contract_abi, contract_address, call_data_list):
+    # 使用 Multicall 合约进行批量调用
+    multicall_address = "0xcA11b098EA7386935F2b529d595C3aA27"
+    multicall_abi = [...]
+
+    contract = web3.eth.contract(address=multicall_address, abi=multicall_abi)
+
+    # 准备调用数据
+    calls = []
+    for call_data in call_data_list:
+        calls.append({
+            "target": contract_address,
+            "callData": call_data
+        })
+
+    # 发送批量调用
+    result = contract.functions.aggregate(calls).call({
+        "from": web3.eth.coinbase,
+        "gas": 1000000
+    })
+
+    return result
+
+# 使用示例
+call_data = [
+    "0x12345678",  # 函数签名 + 编码的参数
+    "0x87654321",
+    "0x98765432"
+]
+
+results = batch_call(contract_abi, contract_address, call_data)
+for i, result in enumerate(results):
+    print(f"Call {i+1} result: {result}")</pre>
+
+      <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px;">👂️ 事件监听</h2>
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">监听合约事件</h3>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">from web3 import Web3
+
+# 1. 使用 WebSocket Provider 进行事件监听
+web3 = Web3(Web3.WebsocketProvider("wss://mainnet.infura.io/ws/v3/YOUR_PROJECT_ID"))
+
+# 2. 创建事件过滤器
+event_filter = web3.eth.contract(address=contract_address, abi=contract_abi).events.Transfer.create_filter(
+    fromBlock=0,
+    toAddress=account.address
+)
+
+# 3. 监听新事件
+def handle_event(event):
+    print(f"New Transfer: {event}")
+    print(f"  From: {event.args['from']}")
+    print(f"  To: {event.args['to']}")
+    print(f"  Value: {event.args['value']}")
+
+# 4. 遍历历史事件
+print("Fetching historical events...")
+for event in event_filter.get_all_entries():
+    handle_event(event)
+
+# 5. 监听实时事件
+print("Listening for new events...")
+while True:
+    for event in event_filter.get_new_entries():
+        handle_event(event)
+    import time
+    time.sleep(2)  # 每 2 秒检查一次</pre>
+
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">异步事件监听</h3>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">import asyncio
+from web3 import Web3
+
+web3 = Web3(Web3.WebsocketProvider("wss://mainnet.infura.io/ws/v3/YOUR_PROJECT_ID"))
+contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+
+async def handle_event(event):
+    print(f"New event: {event}")
+
+async def listen_for_events():
+    event_filter = contract.events.Transfer.create_filter(
+        fromBlock=web3.eth.block_number
+    )
+
+    # 监听新事件
+    while True:
+        for event in event_filter.get_new_entries():
+            await handle_event(event)
+        await asyncio.sleep(2)
+
+    # 获取历史事件
+    print("Fetching historical events...")
+    for event in event_filter.get_all_entries():
+        await handle_event(event)
+
+# 运行异步监听
+asyncio.run(listen_for_events())</pre>
+
+      <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px;">⛽️ Gas 优化</h2>
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">使用 EIP-1559 类型</h3>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">from web3 import Web3
+
+# EIP-1559 类型支持更便宜的 Gas
+from eth_abi import Address
+
+# 1. 使用地址类型代替字符串
+account = Account.from_key(private_key)
+
+# 2. 使用 EIP-1559 类型
+transaction = {
+    "from": Address(account.address),
+    "to": Address(contract_address),
+    "value": 0,
+    "gas": 100000,
+    "gasPrice": Address(web3.eth.gas_price),
+    "nonce": web3.eth.get_transaction_count(Address(account.address)),
+    "chainId": 1  # EIP-1559 需要 chainId
+}
+
+# 3. 签名并发送交易
+signed_txn = web3.eth.account.sign_transaction(transaction, account.key)
+tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+
+print(f"Transaction hash: {tx_hash.hex()}")</pre>
+
+      <h3 style="font-size: 24px; font-weight: 600; color: #1a1a1a; margin-top: 48px; margin-bottom: 20px; letter-spacing: -0.5px;">批量交易</h3>
+      <pre style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 24px; font-family: 'SF Mono', 'Monaco', 'Courier New', monospace; font-size: 14px; color: #e83e8c;">from web3 import Web3
+
+# 批量发送交易
+transactions = [
+    {
+        "to": Address(recipient_address),
+        "value": 1000000000000000000,  # 1 ETH
+        "gas": 21000
+    }
+    for recipient_address in recipient_addresses
+]
+
+# 签名所有交易
+signed_transactions = [account.sign_transaction(tx) for tx in transactions]
+
+# 批量发送
+tx_hashes = [web3.eth.send_raw_transaction(tx.rawTransaction) for tx in signed_transactions]
+
+print(f"Sent {len(tx_hashes)} transactions")
+for i, tx_hash in enumerate(tx_hashes):
+    print(f"  Transaction {i+1}: {tx_hash.hex()}")</pre>
+
+      <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px;">📚 学习资源</h2>
+      <ul style="margin-bottom: 32px; padding-left: 24px;">
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;"><a href="https://web3py.readthedocs.io/en/stable/" target="_blank" style="color: #1976d2; text-decoration: underline;">Web3.py 官方文档</a></li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;"><a href="https://ethers.org/" target="_blank" style="color: #1976d2; text-decoration: underline;">Ethers.js（JavaScript 等效）</a></li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;"><a href="https://ethereum.org/developers/docs/apis/json-rpc/" target="_blank" style="color: #1976d2; text-decoration: underline;">以太坊 JSON-RPC API</a></li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;"><a href="https://github.com/Pheglovog/clawd-workspace" target="_blank" style="color: #1976d2; text-decoration: underline;">我的学习笔记</a></li>
+      </ul>
+
+      <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin-top: 60px; margin-bottom: 24px; letter-spacing: -1px; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px;">📝 总结</h2>
+      <p style="font-size: 16px; line-height: 1.8; margin-bottom: 16px;">本文介绍了 Web3.py 的多个方面的开发指南：</p>
+      <ol style="margin-bottom: 32px; padding-left: 24px;">
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;">账户管理与私钥安全</li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;">连接到不同的以太坊网络</li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;">智能合约交互（部署、调用、批量调用）</li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;">事件监听（同步、异步、历史事件）</li>
+        <li style="font-size: 16px; line-height: 1.8; margin-bottom: 12px;">Gas 优化技巧（EIP-1559、批量交易）</li>
+      </ol>
+      <p style="font-size: 16px; line-height: 1.8; margin-bottom: 16px;">通过遵循这些最佳实践，你可以构建出安全、高效、Gas 优化的 Web3 应用。</p>
+    </div>
+
+    <nav style="display: flex; justify-content: space-between; align-items: center; margin-top: 80px; padding-top: 32px; border-top: 1px solid #e5e5e5;">
+      <a href="../blog.html" style="padding: 12px 24px; background: #fff; border: 1px solid #e5e5e5; border-radius: 6px; transition: all 0.2s; font-weight: 500; text-decoration: none; color: #1a1a1a;">← 返回博客</a>
+      <a href="../index.html" style="padding: 12px 24px; background: #1a1a1a; color: #fff; border-radius: 6px; transition: all 0.2s; font-weight: 500; text-decoration: none;">返回首页</a>
+    </nav>
+  </article>
+</body>
+</html>

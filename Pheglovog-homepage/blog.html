@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/pheglovog-site/">
+  <meta name="description" content="博客 - Pheglovog 的技术博客，分享关于量化交易、区块链、全栈开发的学习心得与项目实践">
+  <meta name="keywords" content="博客, 量化交易, 区块链, 全栈开发, Python, Solidity, Vue.js, Go">
+  <meta name="author" content="Pheglovog">
+  <title>博客 - Pheglovog</title>
+  <link rel="canonical" href="https://pheglovog.github.io/pheglovog-site/blog.html">
+
+  <style>
+    /* 全局样式 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "SF Pro Text", BlinkMacSystemFont, "Microsoft YaHei", "微软雅黑", "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+    .nav { display: flex; gap: 32px; }
+    .nav a {
+      font-size: 15px;
+      color: #666;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+    .nav a:hover { color: #1a1a1a; }
+    .nav a.active { color: #1a1a1a; font-weight: 600; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+      background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 32px;
+      letter-spacing: -0.5px;
+    }
+
+    /* Blog Grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    /* Blog Card - 重点修复：增加圆角 */
+    .blog-card {
+      background: #fff;
+      border-radius: 24px; /* 增大圆角 */
+      padding: 32px;
+      display: block;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      color: #1a1a1a;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    .blog-card:hover {
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+      transform: translateY(-8px);
+    }
+    .blog-card .date {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .blog-card .date::before {
+      content: '📅 ';
+      margin-right: 6px;
+    }
+    .blog-card .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      line-height: 1.4;
+    }
+    .blog-card .excerpt {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    .blog-card .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .blog-card .tag {
+      background: #fafafa;
+      padding: 8px 16px;
+      border-radius: 20px; /* 标签也使用圆角 */
+      font-size: 13px;
+      color: #666;
+      font-weight: 500;
+      border: none;
+    }
+    .blog-card .icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+      text-align: center;
+    }
+    .blog-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .blog-card-meta .read-time {
+      font-size: 13px;
+      color: #999;
+    }
+    .blog-card-meta .read-time::before {
+      content: '⏱ ';
+      margin-right: 4px;
+    }
+    .blog-card-meta .card-link {
+      font-size: 14px;
+      color: #1a1a1a;
+      font-weight: 500;
+      background: #f5f5f5;
+      padding: 10px 20px;
+      border-radius: 20px; /* 按钮使用大圆角 */
+      transition: all 0.2s;
+    }
+    .blog-card-meta .card-link:hover {
+      background: #1a1a1a;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      padding: 40px 24px;
+      text-align: center;
+      margin-top: 80px;
+      border-top: 1px solid #e5e5e5;
+    }
+    footer p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+    footer a {
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; }
+      .header-content { flex-direction: column; gap: 16px; }
+      .nav { gap: 20px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-card { border-radius: 20px; padding: 24px; }
+      .blog-card .title { font-size: 18px; }
+      .blog-card .excerpt { font-size: 14px; }
+      .blog-card-meta { flex-direction: column; gap: 12px; }
+      .blog-card-meta .card-link { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">Pheglovog</a>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="projects.html">项目</a>
+        <a href="blog.html" class="active">博客</a>
+        <a href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>博客</h1>
+      <p>分享关于量化交易、区块链、全栈开发的学习心得与项目实践</p>
+    </section>
+
+    <section class="blog-grid">
+      <!-- 文章 1: FastAPI 最佳实践 -->
+      <a href="articles/fastapi-best-practices.html" class="blog-card">
+        <span class="icon">🚀</span>
+        <div class="date">2026-02-03</div>
+        <h2 class="title">FastAPI 最佳实践和异步编程指南</h2>
+        <p class="excerpt">详细介绍 FastAPI 的异步编程最佳实践、项目结构规范、依赖注入和中间件、性能优化技巧、安全性实现和部署指南。</p>
+        <div class="tags">
+          <span class="tag">FastAPI</span>
+          <span class="tag">异步编程</span>
+          <span class="tag">Python</span>
+        </div>
+        <div class="blog-card-meta">
+          <span class="read-time">阅读时间约 15 分钟</span>
+          <span class="card-link">阅读文章 →</span>
+        </div>
+      </a>
+
+      <!-- 文章 2: Web3.py 开发 -->
+      <a href="articles/web3py-guide.html" class="blog-card">
+        <span class="icon">⛓</span>
+        <div class="date">2026-02-03</div>
+        <h2 class="title">Web3.py 完整开发指南</h2>
+        <p class="excerpt">涵盖 Web3.py 的账户管理、私钥安全、智能合约交互、事件监听、多网络支持和 Gas 优化。</p>
+        <div class="tags">
+          <span class="tag">Web3</span>
+          <span class="tag">智能合约</span>
+          <span class="tag">区块链</span>
+        </div>
+        <div class="blog-card-meta">
+          <span class="read-time">阅读时间约 20 分钟</span>
+          <span class="card-link">阅读文章 →</span>
+        </div>
+      </a>
+
+      <!-- 文章 3: LangChain 高级特性 -->
+      <a href="https://github.com/Pheglovog/clawd-workspace/blob/main/docs/langchain-advanced.md" target="_blank" class="blog-card">
+        <span class="icon">🦜</span>
+        <div class="date">2026-02-03</div>
+        <h2 class="title">LangChain 高级特性 - VectorStore 和 Callbacks</h2>
+        <p class="excerpt">深入介绍 LangChain 的向量存储（VectorStore）、多种向量数据库、回调函数（Callbacks）、自定义回调处理器、RAG 检索增强生成和性能监控。</p>
+        <div class="tags">
+          <span class="tag">LangChain</span>
+          <span class="tag">向量数据库</span>
+          <span class="tag">RAG</span>
+        </div>
+        <div class="blog-card-meta">
+          <span class="read-time">阅读时间约 25 分钟</span>
+          <span class="card-link">查看文档 →</span>
+        </div>
+      </a>
+
+      <!-- 文章 4: 技术新闻周报 -->
+      <a href="https://github.com/Pheglovog/clawd-workspace/blob/main/docs/tech-news-2026-02-03.md" target="_blank" class="blog-card">
+        <span class="icon">📰</span>
+        <div class="date">2026-02-03</div>
+        <h2 class="title">技术新闻周报 - AI/LLM、云计算、Web3</h2>
+        <p class="excerpt">汇总 Anthropic Claude Opus 4.5/Sonnet 4.5、AWS European Sovereign Cloud、Ethereum Hegotá 升级规划等最新技术动态。</p>
+        <div class="tags">
+          <span class="tag">AI</span>
+          <span class="tag">LLM</span>
+          <span class="tag">云计算</span>
+        </div>
+        <div class="blog-card-meta">
+          <span class="read-time">阅读时间约 5 分钟</span>
+          <span class="card-link">查看文档 →</span>
+        </div>
+      </a>
+
+      <!-- 文章 5: 区块链专家研究 -->
+      <a href="https://github.com/Pheglovog/clawd-workspace/blob/main/docs/blockchain-expert-research.md" target="_blank" class="blog-card">
+        <span class="icon">🔗</span>
+        <div class="date">2026-02-03</div>
+        <h2 class="title">区块链领域专家研究</h2>
+        <p class="excerpt">深入分析 GitHub 以太坊生态的核心基础设施、DeFi 协议、开发工具和安全最佳实践。</p>
+        <div class="tags">
+          <span class="tag">以太坊</span>
+          <span class="tag">DeFi</span>
+          <span class="tag">智能合约</span>
+        </div>
+        <div class="blog-card-meta">
+          <span class="read-time">阅读时间约 10 分钟</span>
+          <span class="card-link">查看文档 →</span>
+        </div>
+      </a>
+
+      <!-- 文章 6: 区块链专家学习计划 -->
+      <a href="https://github.com/Pheglovog/clawd-workspace/blob/main/docs/blockchain-expert-learning-plan.md" target="_blank" class="blog-card">
+        <span class="icon">📚</span>
+        <div class="date">2026-02-03</div>
+        <h2 class="title">3 个月区块链专家学习计划</h2>
+        <p class="excerpt">系统化的学习路径，涵盖 Solidity 基础、智能合约开发、Gas 优化、Layer2 和跨链技术、DeFi 协议和高级应用。</p>
+        <div class="tags">
+          <span class="tag">学习计划</span>
+          <span class="tag">区块链</span>
+          <span class="tag">成长路径</span>
+        </div>
+        <div class="blog-card-meta">
+          <span class="read-time">阅读时间约 10 分钟</span>
+          <span class="card-link">查看文档 →</span>
+        </div>
+      </a>
+
+      <!-- 文章 7: 量化交易入门指南 -->
+      <a href="articles/quant-trading-guide.html" class="blog-card">
+        <span class="icon">📊</span>
+        <div class="date">2026-02-05</div>
+        <h2 class="title">量化交易入门指南</h2>
+        <p class="excerpt">从零开始学习量化交易的基础知识，包括量化交易优势、策略类型、技术栈、开发流程、风险管理等核心内容。</p>
+        <div class="tags">
+          <span class="tag">量化交易</span>
+          <span class="tag">算法交易</span>
+          <span class="tag">Python</span>
+        </div>
+        <div class="blog-card-meta">
+          <span class="read-time">阅读时间约 20 分钟</span>
+          <span class="card-link">阅读文章 →</span>
+        </div>
+      </a>
+
+      <!-- 文章 8: CarLife 项目介绍 -->
+      <a href="articles/carlife-intro.html" class="blog-card">
+        <span class="icon">🚗</span>
+        <div class="date">2026-02-05</div>
+        <h2 class="title">CarLife - 去中心化汽车生活平台</h2>
+        <p class="excerpt">利用区块链技术打造汽车行业的信任基础设施，包括车辆数字身份、维修记录、智能合约保险、信用评分系统等功能。</p>
+        <div class="tags">
+          <span class="tag">CarLife</span>
+          <span class="tag">区块链</span>
+          <span class="tag">智能合约</span>
+        </div>
+        <div class="blog-card-meta">
+          <span class="read-time">阅读时间约 15 分钟</span>
+          <span class="card-link">阅读文章 →</span>
+        </div>
+      </a>
+
+      <!-- 文章 9: AlphaGPT 技术架构 -->
+      <a href="articles/alphagpt-architecture.html" class="blog-card">
+        <span class="icon">🤖</span>
+        <div class="date">2026-02-05</div>
+        <h2 class="title">AlphaGPT 技术架构</h2>
+        <p class="excerpt">中国股市量化交易系统的完整技术架构设计，涵盖数据层、策略层、执行层、监控层，以及核心模块、数据库设计、AI 模型集成等。</p>
+        <div class="tags">
+          <span class="tag">AlphaGPT</span>
+          <span class="tag">量化交易</span>
+          <span class="tag">技术架构</span>
+        </div>
+        <div class="blog-card-meta">
+          <span class="read-time">阅读时间约 25 分钟</span>
+          <span class="card-link">阅读文章 →</span>
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Pheglovog</p>
+    <a href="https://github.com/Pheglovog" target="_blank">GitHub</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{{- if .Site.Params.blog.showRelatedPosts -}}
+<div class="related-posts">
+  <h3>相关文章</h3>
+  <div class="related-grid">
+    {{- $currentPage := . }}
+    {{- range first .Site.Params.blog.relatedPostsCount (where .Site.RegularPages "Section" "posts") }}
+      {{- if ne . $currentPage }}
+        <a href="{{ .RelPermalink }}" class="related-card">
+          <div class="related-date">{{ .Date.Format .Site.Params.blog.dateFormat }}</div>
+          <div class="related-title">{{ .Title }}</div>
+          <div class="related-excerpt">{{ .Summary | plainify | truncate 100 }}</div>
+        </a>
+      {{- end }}
+    {{- end }}
+  </div>
+</div>
+{{- end }}

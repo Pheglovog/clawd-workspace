@@ -1,0 +1,40 @@
+<div class="article-meta">
+  <div class="meta-item">
+    {{ partial "icon.html" (dict "name" "calendar" "class" "icon") }}
+    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format .Site.Params.blog.dateFormat }}</time>
+  </div>
+
+  {{- if .Site.Params.blog.showReadTime }}
+    <div class="meta-item">
+      {{ partial "icon.html" (dict "name" "clock" "class" "icon") }}
+      <span>{{ .ReadingTime }} 分钟阅读</span>
+    </div>
+  {{- end }}
+
+  {{- if and .Site.Params.blog.showCategories .Params.categories }}
+    <div class="meta-item">
+      {{ partial "icon.html" (dict "name" "folder" "class" "icon") }}
+      {{- range $index, $category := .Params.categories }}
+        {{- if $index }}, {{ end }}
+        <a href="{{ "categories" | relURL }}/{{ $category | urlize }}/">{{ $category }}</a>
+      {{- end }}
+    </div>
+  {{- end }}
+
+  {{- if and .Site.Params.blog.showTags .Params.tags }}
+    <div class="meta-item">
+      {{ partial "icon.html" (dict "name" "tag" "class" "icon") }}
+      {{- range $index, $tag := .Params.tags }}
+        {{- if $index }}, {{ end }}
+        <a href="{{ "tags" | relURL }}/{{ $tag | urlize }}/">{{ $tag }}</a>
+      {{- end }}
+    </div>
+  {{- end }}
+
+  {{- if .Params.updated }}
+    <div class="meta-item">
+      {{ partial "icon.html" (dict "name" "refresh" "class" "icon") }}
+      <time datetime="{{ .Params.updated.Format "2006-01-02T15:04:05Z07:00" }}">更新于 {{ .Params.updated.Format "2006-01-02" }}</time>
+    </div>
+  {{- end }}
+</div>

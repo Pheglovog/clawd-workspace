@@ -1,0 +1,35 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{{- $title := .Title -}}
+{{- if .IsHome -}}
+  {{- $title = .Site.Title -}}
+{{- end -}}
+<title>{{ $title }} - {{ .Site.Title }}</title>
+
+{{- $description := .Site.Params.description -}}
+{{- if and (not .IsHome) .Summary -}}
+  {{- $description = .Summary | plainify -}}
+{{- end -}}
+<meta name="description" content="{{ $description }}">
+<meta name="author" content="{{ .Site.Params.author | default .Site.Title }}">
+
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{- with .Params.images }}
+<meta property="og:image" content="{{ index . 0 }}">
+{{- else if .Site.Params.images }}
+<meta property="og:image" content="{{ index .Site.Params.images 0 }}">
+{{- end }}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
+
+{{- if .Site.Params.giscus.enable }}
+<link rel="preconnect" href="https://giscus.app" crossorigin>
+{{- end }}
+
+<link rel="stylesheet" href="{{ "css/site.css" | relURL }}">

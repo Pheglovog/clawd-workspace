@@ -1,0 +1,35 @@
+{{ define "head-extra" }}
+  <link href="{{ "pagefind/pagefind-ui.css" | relURL }}" rel="stylesheet">
+{{ end }}
+
+{{ define "main" }}
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">{{ .Site.Title }}</p>
+      <h1 class="page-title">搜索</h1>
+      <p class="page-subtitle">输入关键词搜索博客内容</p>
+    </div>
+  </section>
+
+  <section class="section search-shell">
+    <div class="container">
+      <div id="search"></div>
+    </div>
+  </section>
+{{ end }}
+
+{{ define "scripts" }}
+  <script src="{{ "pagefind/pagefind-ui.js" | relURL }}"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.PagefindUI) {
+        new PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          showImages: false,
+          translations: { placeholder: "搜索文章" }
+        });
+      }
+    });
+  </script>
+{{ end }}

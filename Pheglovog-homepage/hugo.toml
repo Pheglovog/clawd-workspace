@@ -1,23 +1,128 @@
 baseURL = 'https://pheglovog.github.io/pheglovog-site/'
 languageCode = 'zh-CN'
 title = 'Pheglovog'
-canonifyURLs = false
+canonifyURLs = true
 
-# 参数配置
+# 分类法配置 (taxonomies)
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+# SEO 参数配置
 [params]
-  description = "量化交易 | 区块链 | 全栈开发"
+  description = "量化交易 | 区块链 | 全栈开发 - Pheglovog 的个人博客，分享关于中国股市量化交易系统、以太坊 Web3 开发和全栈技术的学习心得与项目实践"
   title = "Pheglovog"
+  author = "Pheglovog"
+  keywords = ["量化交易", "区块链", "全栈开发", "Python", "Solidity", "Vue.js", "Go", "中国股市"]
+  images = ["/img/og-image.png"]
 
-# Markdown 配置
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+  # 社交链接
+  [params.social]
+    github = "https://github.com/Pheglovog"
+    email = "3042569263@qq.com"
 
-# 输出配置
-[outputs]
-  home = ["HTML"]
-  section = ["HTML"]
-  page = ["HTML"]
-  taxonomy = ["HTML"]
-  term = ["HTML"]
+  # Minify 配置
+  [minify]
+    disableCSS = false
+    disableHTML = false
+    disableJS = false
+    disableJSON = false
+    disableSVG = false
+    disableXML = false
+    minifyOutput = true
+    [minify.tdew]
+      keepWhitespace = false
+
+  # Markdown 配置
+  [markup]
+    [markup.goldmark]
+      [markup.goldmark.renderer]
+        unsafe = true
+      [markup.goldmark.parser]
+        attribute = true
+        autoHeadingID = true
+
+  # 输出配置
+  [outputs]
+    home = ["HTML", "RSS", "Sitemap"]
+    section = ["HTML"]
+    taxonomy = ["HTML"]
+    term = ["HTML"]
+    page = ["HTML"]
+
+  # Sitemap 配置
+  [sitemap]
+    changefreq = "weekly"
+    priority = 0.5
+    filename = "sitemap.xml"
+
+  # RSS 配置
+  [services.rss]
+    limit = 20
+
+  # 博客配置
+  [params.blog]
+    paginate = 10
+    dateFormat = "2006-01-02"
+    showReadTime = true
+    showTags = true
+    showCategories = true
+    showTOC = true
+    showRelatedPosts = true
+    relatedPostsCount = 3
+
+  # Giscus 评论系统配置
+  [params.giscus]
+    enable = true
+    repo = "Pheglovog/pheglovog-site"
+    repoId = "R_kgDOHxVQw"
+    category = "General"
+    categoryId = "DIC_kwDOHxVQM4CZ_0v"
+    mapping = "pathname"
+    reactionsEnabled = true
+    emitMetadata = false
+    inputPosition = "top"
+    lang = "zh-CN"
+    loading = "lazy"
+
+  # 导航菜单配置
+  [menu]
+    [[menu.main]]
+        name = "首页"
+        url = "/"
+        weight = 10
+
+    [[menu.main]]
+        name = "博客"
+        url = "/posts/"
+        weight = 20
+
+    [[menu.main]]
+        name = "项目"
+        url = "/projects/"
+        weight = 30
+
+    [[menu.main]]
+        name = "搜索"
+        url = "/search/"
+        weight = 35
+
+    [[menu.main]]
+        name = "关于"
+        url = "/about/"
+        weight = 40
+
+  # 内容管理
+  [imaging]
+    resampleFilter = "box"
+    quality = 85
+
+  # 服务器配置
+  [server]
+    [[server.headers]]
+      for = "/"
+        [server.headers.values]
+        X-Content-Type-Options = "nosniff"
+        X-Frame-Options = "SAMEORIGIN"
+        Referrer-Policy = "no-referrer"
+        X-XSS-Protection = "1; mode=block"

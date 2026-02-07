@@ -2,8 +2,6 @@
 title: "Pheglovog"
 ---
 
-<link rel="stylesheet" href="/css/custom.css">
-
 <div class="hero-section">
   <div class="hero-content">
     <h1 class="hero-title">💪 Pheglovog</h1>
