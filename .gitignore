@@ -1,6 +1,9 @@
 # Logs
 logs/*.log
 
+# Ignore Pheglovog-homepage (independent repository)
+Pheglovog-homepage/
+
 # Memory files (keep them local)
 memory/*.md
 
