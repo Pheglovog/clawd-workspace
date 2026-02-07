@@ -17,3 +17,6 @@
 - [x] 检查 AlphaGPT 项目代码质量
 - [x] 更新各项目 README.md
 - [x] 推送 AlphaGPT 和 CarLife 到 GitHub
+- [x] 磁盘清理（释放 7G 空间）
+- [x] 修复 Pheglovog-homepage 子模块问题
+- [x] Git 状态整理（所有项目干净）
