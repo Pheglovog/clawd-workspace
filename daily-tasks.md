@@ -19,7 +19,7 @@
 - [x] 更新各项目 README.md
 - [x] 编写技术文档
 - [ ] 记录加密货币学习笔记
-- [ ] 完善 AlphaGPT API 文档
+- [x] 完善 AlphaGPT API 文档（已创建 API.md，806 行）
 
 ### 项目维护
 - [x] 推送 AlphaGPT 和 CarLife 到 GitHub
