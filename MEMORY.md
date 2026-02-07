@@ -148,9 +148,9 @@ Token: cc9f4227a4be5c67699791c24526d2ec3947877f1cec3619866078f4
 - [x] CarLife - 创建 CarNFT_Fixed.sol 测试用例（31 个测试全部通过）
 
 ### 中优先级
-- [ ] 记录加密货币学习笔记
+- [x] 记录加密货币学习笔记（已创建 crypto-learning-notes.md，整合 4 个文档）
 - [x] 完善 AlphaGPT API 文档（已创建 API.md）
-- [ ] 研究 DeFi 协议原理
+- [ ] 研究 DeFi 协议原理（深入）
 
 ### 低优先级
 - [ ] 研究 Layer2 扩容方案

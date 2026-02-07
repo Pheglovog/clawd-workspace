@@ -18,7 +18,7 @@
 ### 文档完善
 - [x] 更新各项目 README.md
 - [x] 编写技术文档
-- [ ] 记录加密货币学习笔记
+- [x] 记录加密货币学习笔记（已创建 crypto-learning-notes.md）
 - [x] 完善 AlphaGPT API 文档（已创建 API.md，806 行）
 
 ### 项目维护
