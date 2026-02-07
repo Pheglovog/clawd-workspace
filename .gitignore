@@ -1,0 +1,21 @@
+# Logs
+logs/*.log
+
+# Memory files (keep them local)
+memory/*.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/

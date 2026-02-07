@@ -1,4 +1,19 @@
-# HEARTBEAT.md
+# HEARTBEAT.md - 每小时进度汇报
 
-# Keep this file empty (or with only comments) to skip heartbeat API calls.
-# Add tasks below when you want the agent to check something periodically.
+收到 cron 定时任务的进度汇报消息时：
+1. 如果消息内容是 "[主动进度汇报]" 开头，则直接回复该消息
+2. 其他时候检查待办事项和邮件
+
+注意：不要回复 "HEARTBEAT_OK"，直接处理收到的系统事件。
+
+## 今日待办检查结果
+
+### 📋 用户任务
+- [ ] 添加更多项目到 projects.html
+- [ ] AlphaGPT - 添加数据预处理模块
+- [ ] CarLife - 完善智能合约测试
+
+### 🔧 主动任务
+- [x] 检查 AlphaGPT 项目代码质量
+- [x] 更新各项目 README.md
+- [x] 推送 AlphaGPT 和 CarLife 到 GitHub
