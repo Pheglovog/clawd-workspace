@@ -48,6 +48,23 @@ Things like:
 
 ---
 
+## OpenClaw Skills 查找网站
+
+- **URL**: https://github.com/VoltAgent/awesome-openclaw-skills
+- **用途**: 查找和获取 OpenClaw 技能（Skills）
+- **本地技能位置**: /root/clawd/openclaw/skills/
+- **主要技能**:
+  - coding-agent: 编程助手（Codex, Claude Code, OpenCode, Pi）
+  - skill-creator: 创建和管理技能
+  - github: GitHub 交互
+  - mcporter: MCP 服务器管理
+  - weather: 天气查询
+  - 等等...
+
+**注意**: 查找技能时优先去这个网站，然后可以参考本地 `/root/clawd/openclaw/skills/` 目录下的实现。
+
+---
+
 ## Git 全局配置
 
 ```bash
