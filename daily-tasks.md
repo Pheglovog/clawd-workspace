@@ -44,10 +44,11 @@
    - 更新 requests（广泛使用，2.31.0 -> 2.32.5）
    - 所有依赖已更新到最新版本
 
-2. [ ] 评估 CarLife Hardhat 升级
+2. [x] 评估 CarLife Hardhat 升级
    - 检查 Hardhat 3.1.7 更新日志
    - 评估与现有代码的兼容性
-   - 如无兼容性问题，更新到最新版本
+   - 创建升级评估报告（hardhat-upgrade-evaluation.md）
+   - 建议：短期不升级，中期升级到 2.19.0
 
 3. [ ] 添加依赖锁定文件
    - AlphaGPT: 添加 requirements.lock.txt
