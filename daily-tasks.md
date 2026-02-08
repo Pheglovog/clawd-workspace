@@ -57,7 +57,11 @@
    - 分析 Gas 费用和安全性
    - 创建 layer2-scaling-research.md（11.3KB）
 
-3. [ ] 研究零知识证明（zk-SNARKs）
+3. [x] 研究零知识证明（zk-SNARKs）
+   - 了解零知识证明基本原理
+   - 学习 zk-SNARKs 应用场景
+   - 研究相关项目和工具
+   - 创建 zksnarks-research.md（9KB）
    - 了解零知识证明基本原理
    - 学习 zk-SNARKs 应用场景
    - 研究相关项目和工具
