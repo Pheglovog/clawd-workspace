@@ -50,9 +50,11 @@
    - 创建升级评估报告（hardhat-upgrade-evaluation.md）
    - 建议：短期不升级，中期升级到 2.19.0
 
-3. [ ] 添加依赖锁定文件
+3. [x] 添加依赖锁定文件
    - AlphaGPT: 添加 requirements.lock.txt
    - CarLife: 确保 package-lock.json 提交
+   - AlphaGPT: requirements.lock.txt 已存在
+   - CarLife: package-lock.json 已提交
 
 ### 中优先级任务
 4. [ ] 建立定期依赖检查流程
