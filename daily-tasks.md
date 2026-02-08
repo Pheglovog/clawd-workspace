@@ -51,10 +51,11 @@
    - 研究风险和最佳实践
    - 创建 defi-protocol-research.md（10.8KB）
 
-2. [ ] 研究 Layer2 扩容方案
+2. [x] 研究 Layer2 扩容方案
    - 了解 Optimistic Rollup（Arbitrum、Optimism）
    - 了解 ZK Rollup（zkSync、StarkNet）
    - 分析 Gas 费用和安全性
+   - 创建 layer2-scaling-research.md（11.3KB）
 
 3. [ ] 研究零知识证明（zk-SNARKs）
    - 了解零知识证明基本原理
