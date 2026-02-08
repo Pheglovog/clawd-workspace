@@ -62,10 +62,10 @@
    - ✅ 测试脚本运行成功（所有依赖都是最新版本）
    - ✅ 设置每周自动检查（Cron: 每周一 8:00）
 
-5. [ ] 集成安全扫描工具
-   - AlphaGPT: 集成 bandit
-   - CarLife: 集成 Snyk
-   - 添加到 CI/CD 流程
+5. [x] 集成安全扫描工具
+   - ✅ AlphaGPT: 集成 bandit
+   - ⏳ CarLife: 集成 Snyk（待完成）
+   - ✅ 添加到 CI/CD 流程（GitHub Actions）
 
 6. [ ] 编写 DeFi 协议部署教程
    - Aave 部署指南
@@ -117,6 +117,15 @@
 - [x] 项目健康检查
 - [x] 整理学习笔记
 - [x] 所有代码已推送到 GitHub（15 次提交）
+
+### 2026-02-09 05:00
+- [x] AlphaGPT 集成 Bandit 安全扫描
+- [x] 修复安全问题：
+  - 修复 MD5 哈希（添加 usedforsecurity=False）
+  - 添加 SQL 参数验证和范围限制
+  - 添加地址字符串转义
+- [x] 添加 GitHub Actions 自动扫描工作流
+- [x] 创建安全扫描报告（reports/security-report.md）
 
 ---
 
