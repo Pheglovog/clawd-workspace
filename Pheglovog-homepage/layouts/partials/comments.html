@@ -1,62 +1,31 @@
 <div class="comments">
   <div class="comments-header">
     <h3>评论</h3>
-    <span class="comments-count">0 条评论</span>
   </div>
 
   <div class="comments-container" id="giscus-container"></div>
-
-  <div class="quick-comment">
-    <textarea id="quick-comment-input" placeholder="写下你的评论..." rows="3"></textarea>
-    <button id="quick-comment-submit" class="comment-submit-btn" type="button">发布评论</button>
-  </div>
-
-  <div class="comments-tips">
-    <p>提示：</p>
-    <ul>
-      <li>支持 Markdown 格式</li>
-      <li>支持代码高亮和表格</li>
-      <li>评论会同步到 GitHub</li>
-    </ul>
-  </div>
 </div>
 
 <script>
   (function() {
-    const submitBtn = document.getElementById('quick-comment-submit');
-    const commentInput = document.getElementById('quick-comment-input');
-    const giscusContainer = document.getElementById('giscus-container');
+    const container = document.getElementById('giscus-container');
+    if (!container) return;
 
-    if (!submitBtn || !commentInput) return;
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.setAttribute('data-repo', '{{ .Site.Params.giscus.repo }}');
+    script.setAttribute('data-repo-id', '{{ .Site.Params.giscus.repoId }}');
+    script.setAttribute('data-category', '{{ .Site.Params.giscus.category }}');
+    script.setAttribute('data-category-id', '{{ .Site.Params.giscus.categoryId }}');
+    script.setAttribute('data-mapping', '{{ .Site.Params.giscus.mapping }}');
+    script.setAttribute('data-reactions-enabled', '{{ if .Site.Params.giscus.reactionsEnabled }}1{{ else }}0{{ end }}');
+    script.setAttribute('data-emit-metadata', '{{ if .Site.Params.giscus.emitMetadata }}1{{ else }}0{{ end }}');
+    script.setAttribute('data-input-position', '{{ .Site.Params.giscus.inputPosition }}');
+    script.setAttribute('data-theme', 'light');
+    script.setAttribute('data-lang', '{{ .Site.Params.giscus.lang }}');
 
-    submitBtn.addEventListener('click', function() {
-      const comment = commentInput.value.trim();
-
-      if (!comment) {
-        alert('请输入评论内容');
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = '发布中...';
-
-      if (giscusContainer) {
-        giscusContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-
-      setTimeout(function() {
-        alert('评论已发布！\n\n注意：这是示意交互，实际评论由 Giscus 提供。');
-        commentInput.value = '';
-        submitBtn.disabled = false;
-        submitBtn.textContent = '发布评论';
-      }, 1000);
-    });
-
-    commentInput.addEventListener('keydown', function(e) {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-        e.preventDefault();
-        submitBtn.click();
-      }
-    });
+    container.appendChild(script);
   })();
 </script>

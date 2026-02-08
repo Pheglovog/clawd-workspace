@@ -1,18 +1,18 @@
 # Logs
 logs/*.log
 
-# Ignore Pheglovog-homepage (independent repository)
-Pheglovog-homepage/
-
 # Memory files (keep them local)
 memory/*.md
+!.gitignore
+
+# Pheglovog-homepage (independent repository)
+Pheglovog-homepage/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-
 # OS
 .DS_Store
 Thumbs.db
@@ -22,3 +22,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
+
+# Keep important markdown files
+!README.md
+!CHANGELOG.md
+!LICENSE.md
+!CODE_OF_CONDUCT.md
+*.md
+
+# Node
+node_modules/
+package-lock.json

@@ -1,5 +1,6 @@
 {{ define "main" }}
   {{- $hasToc := and .TableOfContents .Site.Params.blog.showTOC -}}
+  {{- $isPost := eq .Section "posts" -}}
   <section class="page-hero page-hero--article">
     <div class="container container--reading">
       <p class="eyebrow">{{ .Section | default "文章" }}</p>
@@ -7,7 +8,9 @@
       {{- with .Params.subtitle }}
         <p class="page-subtitle">{{ . }}</p>
       {{- end }}
-      {{ partial "article-meta.html" . }}
+      {{- if $isPost }}
+        {{ partial "article-meta.html" . }}
+      {{- end }}
     </div>
   </section>
 
@@ -18,7 +21,7 @@
           {{ .Content }}
         </div>
 
-        {{- if eq .Section "posts" }}
+        {{- if $isPost }}
           {{ partial "article-share.html" . }}
           {{ partial "article-reactions.html" . }}
           {{ partial "related-posts.html" . }}

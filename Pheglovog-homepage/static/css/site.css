@@ -23,15 +23,15 @@
 }
 
 :root {
-  --ink: #151515;
-  --muted: #6b6b6b;
-  --muted-strong: #454545;
-  --bg: #f6f6f2;
+  --ink: #18181b;
+  --muted: #6b7280;
+  --muted-strong: #3f3f46;
+  --bg: #fafafa;
   --surface: #ffffff;
-  --line: #e6e6de;
-  --accent: #2f6f6a;
-  --accent-soft: #e3f1ee;
-  --accent-strong: #245c58;
+  --line: #e4e4e7;
+  --accent: #2563eb;
+  --accent-soft: #e0ecff;
+  --accent-strong: #1d4ed8;
   --content-width: 960px;
   --reading-width: 720px;
   --radius-sm: 10px;
@@ -62,8 +62,8 @@ html {
 body {
   font-family: "MiSans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
   color: var(--ink);
-  background: radial-gradient(1200px 600px at 15% -10%, rgba(47, 111, 106, 0.08), transparent 60%),
-    radial-gradient(900px 500px at 90% 0%, rgba(23, 34, 43, 0.06), transparent 55%),
+  background: radial-gradient(1200px 600px at 12% -10%, rgba(37, 99, 235, 0.08), transparent 60%),
+    radial-gradient(900px 500px at 90% 0%, rgba(15, 23, 42, 0.06), transparent 55%),
     var(--bg);
   line-height: 1.7;
   font-size: 16px;
@@ -90,6 +90,7 @@ a:hover {
 
 button {
   font-family: inherit;
+  cursor: pointer;
 }
 
 :focus-visible {
@@ -197,7 +198,7 @@ button {
   font-size: 0.95rem;
   color: var(--muted);
   font-weight: 500;
-  padding-bottom: 0.2rem;
+  padding: 0.35rem 0;
   border-bottom: 1px solid transparent;
 }
 
@@ -436,6 +437,62 @@ button {
   background: var(--ink);
   color: var(--surface);
   border-color: var(--ink);
+}
+
+.archive {
+  margin-top: var(--space-5);
+  display: grid;
+  gap: var(--space-5);
+}
+
+.archive-group {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+
+.archive-month {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: var(--space-3);
+}
+
+.archive-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.archive-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: #f8fafc;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.archive-item:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+  transform: translateY(-1px);
+  background: #f1f5ff;
+}
+
+.archive-title {
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.archive-date {
+  font-size: 0.85rem;
+  color: var(--muted);
+  flex-shrink: 0;
 }
 
 .article-layout {
@@ -793,7 +850,6 @@ button {
 
 .comments-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: var(--space-4);
 }
@@ -803,61 +859,6 @@ button {
   font-weight: 600;
 }
 
-.comments-count {
-  font-size: 0.8rem;
-  color: var(--muted);
-  background: #f3f4f0;
-  padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-}
-
-.quick-comment {
-  margin-top: var(--space-4);
-  border: 1px solid var(--line);
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
-  background: #fafafa;
-}
-
-.quick-comment textarea {
-  width: 100%;
-  border: 1px solid var(--line);
-  padding: 0.7rem;
-  border-radius: var(--radius-sm);
-  font-family: inherit;
-  resize: vertical;
-}
-
-.quick-comment textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(47, 111, 106, 0.15);
-}
-
-.comment-submit-btn {
-  margin-top: var(--space-2);
-  padding: 0.65rem 1.2rem;
-  background: var(--ink);
-  color: var(--surface);
-  border: none;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.comment-submit-btn:hover {
-  background: #0f0f0f;
-}
-
-.comments-tips {
-  margin-top: var(--space-4);
-  padding: var(--space-3);
-  border-left: 2px solid var(--accent);
-  background: #f3f4f0;
-  border-radius: var(--radius-sm);
-  color: var(--muted);
-  font-size: 0.85rem;
-}
 
 .site-footer {
   border-top: 1px solid var(--line);
@@ -996,6 +997,11 @@ mark {
 
   .article-content {
     padding: var(--space-4);
+  }
+
+  .archive-item {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

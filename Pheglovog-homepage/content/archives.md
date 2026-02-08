@@ -1,12 +1,7 @@
 ---
 title: "文章归档"
+description: "按月份浏览所有文章"
+layout: "archives"
 ---
 
-这里按时间展示所有文章。
-
-{{ range (where site.RegularPages "Type" "in" (slice "posts" "categories")).GroupByDate "2006-01" }}
-## {{ .Key }}
-{{ range .Pages }}
-- [{{ .Title }}]({{ .RelPermalink }}) - {{ .Date.Format "01-02" }}
-{{ end }}
-{{ end }}
+这里按月份展示所有文章的更新记录。

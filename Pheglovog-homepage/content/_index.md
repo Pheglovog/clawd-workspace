@@ -8,8 +8,8 @@ title: "Pheglovog"
     <p class="hero-subtitle">量化交易 | 区块链 | 全栈开发</p>
     <p class="hero-description">专注技术，持续学习，不断进步</p>
     <div class="hero-buttons">
-      <a href="/projects/" class="btn btn-primary">🚀 查看项目</a>
-      <a href="/posts/" class="btn btn-secondary">📝 阅读博客</a>
+      <a href="{{< relref "projects/_index.md" >}}" class="btn btn-primary">🚀 查看项目</a>
+      <a href="{{< relref "posts/_index.md" >}}" class="btn btn-secondary">📝 阅读博客</a>
     </div>
   </div>
 </div>
@@ -82,7 +82,7 @@ title: "Pheglovog"
           <a href="https://github.com/Pheglovog/AlphaGPT" target="_blank" class="project-link">
             <span class="link-icon">🔗</span> GitHub
           </a>
-          <a href="/posts/alphquant-summary/" class="project-link">
+          <a href="{{< relref "posts/alphquant-summary.md" >}}" class="project-link">
             <span class="link-icon">📖</span> 文章
           </a>
         </div>
@@ -103,7 +103,7 @@ title: "Pheglovog"
           <a href="https://github.com/Pheglovog/carlife-eth" target="_blank" class="project-link">
             <span class="link-icon">🔗</span> GitHub
           </a>
-          <a href="/posts/carlife-experience/" class="project-link">
+          <a href="{{< relref "posts/carlife-experience.md" >}}" class="project-link">
             <span class="link-icon">📖</span> 文章
           </a>
         </div>
@@ -128,7 +128,7 @@ title: "Pheglovog"
       </div>
     </div>
     <div class="section-footer">
-      <a href="/projects/" class="view-all-link">查看全部项目 →</a>
+      <a href="{{< relref "projects/_index.md" >}}" class="view-all-link">查看全部项目 →</a>
     </div>
   </section>
 
@@ -139,7 +139,7 @@ title: "Pheglovog"
       <article class="post-item">
         <div class="post-item-content">
           <h3 class="post-item-title">
-            <a href="/posts/alphquant-summary/">AlphaQuant 中国股市量化系统开发总结</a>
+            <a href="{{< relref "posts/alphquant-complete-guide.md" >}}">AlphaQuant 中国股市量化系统开发总结</a>
           </h3>
           <p class="post-item-excerpt">完成了数据管道、因子引擎、回测引擎和 AlphaQuant 模型...</p>
           <div class="post-item-meta">
@@ -156,7 +156,7 @@ title: "Pheglovog"
       <article class="post-item">
         <div class="post-item-content">
           <h3 class="post-item-title">
-            <a href="/posts/carlife-experience/">CarLife 区块链汽车生活平台开发经验</a>
+            <a href="{{< relref "posts/carlife-experience.md" >}}">CarLife 区块链汽车生活平台开发经验</a>
           </h3>
           <p class="post-item-excerpt">学习了 Solidity 智能合约开发、ERC721 NFT 标准和 Web3 前端集成...</p>
           <div class="post-item-meta">
@@ -173,7 +173,7 @@ title: "Pheglovog"
       <article class="post-item">
         <div class="post-item-content">
           <h3 class="post-item-title">
-            <a href="/posts/growth-story/">从土哥到上等兵•甘 - 我的成长之路</a>
+            <a href="{{< relref "posts/growth-story.md" >}}">从土哥到上等兵•甘 - 我的成长之路</a>
           </h3>
           <p class="post-item-excerpt">从被动执行到主动负责，从单一技能到多元发展，持续学习和进步...</p>
           <div class="post-item-meta">
@@ -187,7 +187,7 @@ title: "Pheglovog"
       </article>
     </div>
     <div class="section-footer">
-      <a href="/posts/" class="view-all-link">查看全部文章 →</a>
+      <a href="{{< relref "posts/_index.md" >}}" class="view-all-link">查看全部文章 →</a>
     </div>
   </section>
 

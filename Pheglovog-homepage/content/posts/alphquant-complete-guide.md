@@ -4,6 +4,8 @@ date: 2026-02-04
 tags: ["量化交易", "Python", "PyTorch", "Tushare", "深度学习", "中国股市"]
 categories: ["量化交易"]
 draft: false
+aliases:
+  - /posts/alphquant-summary/
 ---
 
 ## 📊 项目概述

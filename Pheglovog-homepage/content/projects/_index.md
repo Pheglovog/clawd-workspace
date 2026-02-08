@@ -1,5 +1,7 @@
 ---
 title: "项目"
+aliases:
+  - /projects.html
 ---
 
 这里展示我开发的一些项目。
@@ -18,7 +20,7 @@ title: "项目"
 - 策略管理 - 信号生成、持仓管理、风险控制
 - 可视化 - Streamlit 交互式仪表盘
 
-[GitHub](https://github.com/Pheglovog/AlphaGPT) | [博客文章](/posts/alphquant-summary/)
+[GitHub](https://github.com/Pheglovog/AlphaGPT) | [博客文章]({{< relref "posts/alphquant-complete-guide.md" >}})
 
 ---
 
@@ -52,7 +54,7 @@ title: "项目"
 - 评价和评分系统
 - 数据 Token 激励
 
-[GitHub](https://github.com/Pheglovog/carlife-eth) | [博客文章](/posts/carlife-experience/)
+[GitHub](https://github.com/Pheglovog/carlife-eth) | [博客文章]({{< relref "posts/carlife-experience.md" >}})
 
 ---
 

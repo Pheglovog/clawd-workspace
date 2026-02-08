@@ -1,5 +1,7 @@
 ---
 title: "关于"
+aliases:
+  - /about.html
 ---
 
 ## 我是谁
@@ -59,7 +61,7 @@ title: "关于"
 - 深度学习模型
 - Streamlit 可视化
 
-[GitHub](https://github.com/Pheglovog/AlphaGPT) | [文档](/posts/alphquant-summary/)
+[GitHub](https://github.com/Pheglovog/AlphaGPT) | [文档]({{< relref "posts/alphquant-complete-guide.md" >}})
 
 ### 💱 CurrencyExchange
 区块链货币兑换平台
@@ -77,7 +79,7 @@ title: "关于"
 - 服务商系统
 - 评价体系
 
-[GitHub](https://github.com/Pheglovog/carlife-eth) | [文章](/posts/carlife-experience/)
+[GitHub](https://github.com/Pheglovog/carlife-eth) | [文章]({{< relref "posts/carlife-experience.md" >}})
 
 ## 关注领域
 
@@ -109,7 +111,7 @@ title: "关于"
 
 - 📧 Email: [3042569263@qq.com](mailto:3042569263@qq.com)
 - 💬 GitHub: [Pheglovog](https://github.com/Pheglovog)
-- 📝 博客: [文章归档](/archives/)
+- 📝 博客: [文章归档]({{< relref "archives.md" >}})
 
 ## 座右铭
 
