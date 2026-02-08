@@ -67,10 +67,11 @@
    - ✅ CarLife: 集成 Slither（替代 Snyk，无需 API key）
    - ✅ 添加到 CI/CD 流程（GitHub Actions）
 
-6. [ ] 编写 DeFi 协议部署教程
-   - Aave 部署指南
-   - Uniswap 部署指南
-   - Compound 部署指南
+6. [x] 编写 DeFi 协议部署教程
+   - ✅ Aave 部署指南
+   - ✅ Uniswap 部署指南
+   - ✅ Compound 部署指南
+   - ✅ DeFi 协议总览和选择指南
 
 ### 低优先级任务
 7. [ ] 研究 DeFi 协议实际部署
