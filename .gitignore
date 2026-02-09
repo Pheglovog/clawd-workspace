@@ -10,6 +10,9 @@ Pheglovog-homepage/
 AlphaGPT/
 CarLife/
 
+# Security tools (local installation)
+security-tools/
+
 # IDE
 .vscode/
 .idea/
