@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlphaGPT 量化交易仪表板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2em;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #a0a0a0;
+            font-size: 0.9em;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .metric-label {
+            color: #a0a0a0;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .metric-change {
+            font-size: 0.9em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .positive {
+            color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .negative {
+            color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chart-card h3 {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .positions-table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-x: auto;
+        }
+
+        .positions-table h3 {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            color: #a0a0a0;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+        }
+
+        td {
+            color: #e0e0e0;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .status-active {
+            color: #4caf50;
+        }
+
+        .status-closed {
+            color: #f44336;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #a0a0a0;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #4facfe;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .refresh-btn {
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: opacity 0.3s;
+        }
+
+        .refresh-btn:hover {
+            opacity: 0.9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .status-running {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>📊 AlphaGPT 量化交易仪表板</h1>
+            <p>实时监控交易策略表现 | 中国股市 AI 驱动</p>
+            <p><span class="status-badge status-running">● 运行中</span> <span id="lastUpdate">上次更新: --</span></p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">总收益率</div>
+                <div class="metric-value">+24.5%</div>
+                <div class="metric-change positive">▲ +3.2% (24h)</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">总资产</div>
+                <div class="metric-value">¥1,245,678</div>
+                <div class="metric-change positive">▲ +45,234 (24h)</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">活跃仓位</div>
+                <div class="metric-value">8</div>
+                <div class="metric-change">/ 20 最大</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">夏普比率</div>
+                <div class="metric-value">2.34</div>
+                <div class="metric-change positive">优秀</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">最大回撤</div>
+                <div class="metric-value">-5.2%</div>
+                <div class="metric-change negative">风险控制良好</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">胜率</div>
+                <div class="metric-value">68.5%</div>
+                <div class="metric-change positive">▲ 2.1% (24h)</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>📈 资产曲线</h3>
+                <div class="chart-container">
+                    <canvas id="portfolioChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>📊 收益分布</h3>
+                <div class="chart-container">
+                    <canvas id="profitChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>🥞 资产配置</h3>
+                <div class="chart-container">
+                    <canvas id="allocationChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>⚡ 交易频率</h3>
+                <div class="chart-container">
+                    <canvas id="frequencyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="positions-table">
+            <h3>📋 当前持仓</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>代码</th>
+                        <th>名称</th>
+                        <th>数量</th>
+                        <th>成本价</th>
+                        <th>现价</th>
+                        <th>盈亏</th>
+                        <th>盈亏率</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody id="positionsBody">
+                    <tr><td colspan="9" class="loading">加载中...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; color: #a0a0a0;">
+            <button class="refresh-btn" onclick="refreshData()">🔄 刷新数据</button>
+            <p style="margin-top: 20px; font-size: 0.85em;">数据每 30 秒自动刷新</p>
+        </div>
+    </div>
+
+    <script>
+        // 模拟数据
+        const positionsData = [
+            { code: '600519', name: '贵州茅台', quantity: 100, cost: 1850.50, current: 1923.80 },
+            { code: '000858', name: '五粮液', quantity: 200, cost: 145.20, current: 152.40 },
+            { code: '601318', name: '中国平安', quantity: 500, cost: 42.30, current: 45.80 },
+            { code: '600036', name: '招商银行', quantity: 1000, cost: 32.50, current: 34.20 },
+            { code: '000001', name: '平安银行', quantity: 800, cost: 11.20, current: 10.80 },
+        ];
+
+        // 渲染持仓表格
+        function renderPositions() {
+            const tbody = document.getElementById('positionsBody');
+            tbody.innerHTML = '';
+
+            positionsData.forEach(pos => {
+                const profit = (pos.current - pos.cost) * pos.quantity;
+                const profitRate = ((pos.current - pos.cost) / pos.cost) * 100;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${pos.code}</strong></td>
+                    <td>${pos.name}</td>
+                    <td>${pos.quantity}</td>
+                    <td>¥${pos.cost.toFixed(2)}</td>
+                    <td>¥${pos.current.toFixed(2)}</td>
+                    <td class="${profit >= 0 ? 'positive' : 'negative'}">
+                        ${profit >= 0 ? '+' : ''}¥${profit.toFixed(2)}
+                    </td>
+                    <td class="${profit >= 0 ? 'positive' : 'negative'}">
+                        ${profit >= 0 ? '+' : ''}${profitRate.toFixed(2)}%
+                    </td>
+                    <td><span class="${profit >= 0 ? 'status-active' : 'status-closed'}">
+                        ${profit >= 0 ? '盈利' : '亏损'}
+                    </span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 更新时间
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                timeZone: 'Asia/Shanghai',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('lastUpdate').textContent = `上次更新: ${timeString}`;
+        }
+
+        // 刷新数据
+        function refreshData() {
+            updateTime();
+            renderPositions();
+        }
+
+        // 资产曲线图
+        const portfolioCtx = document.getElementById('portfolioChart').getContext('2d');
+        new Chart(portfolioCtx, {
+            type: 'line',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月'],
+                datasets: [{
+                    label: '资产价值 (万元)',
+                    data: [100, 115, 108, 125, 132, 128, 140, 155],
+                    borderColor: '#4facfe',
+                    backgroundColor: 'rgba(79, 172, 254, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#a0a0a0' }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        // 收益分布图
+        const profitCtx = document.getElementById('profitChart').getContext('2d');
+        new Chart(profitCtx, {
+            type: 'bar',
+            data: {
+                labels: ['贵州茅台', '五粮液', '中国平安', '招商银行', '平安银行'],
+                datasets: [{
+                    label: '盈亏 (元)',
+                    data: [73300, 14400, 17500, 17000, -3200],
+                    backgroundColor: ['#4caf50', '#4caf50', '#4caf50', '#4caf50', '#f44336']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#a0a0a0' }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        // 资产配置图
+        const allocationCtx = document.getElementById('allocationChart').getContext('2d');
+        new Chart(allocationCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['贵州茅台', '五粮液', '中国平安', '招商银行', '平安银行', '现金'],
+                datasets: [{
+                    data: [40, 25, 15, 10, 5, 5],
+                    backgroundColor: ['#4facfe', '#00f2fe', '#4caf50', '#ff9800', '#f44336', '#9c27b0']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { color: '#a0a0a0' }
+                    }
+                }
+            }
+        });
+
+        // 交易频率图
+        const frequencyCtx = document.getElementById('frequencyChart').getContext('2d');
+        new Chart(frequencyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                datasets: [{
+                    label: '交易次数',
+                    data: [12, 15, 8, 10, 14, 5, 3],
+                    backgroundColor: 'rgba(79, 172, 254, 0.6)',
+                    borderColor: '#4facfe',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#a0a0a0' }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        // 初始化
+        refreshData();
+
+        // 自动刷新
+        setInterval(refreshData, 30000);
+
+        console.log('📊 AlphaGPT Dashboard loaded successfully!');
+        console.log('🔄 Auto-refresh enabled (30 seconds)');
+    </script>
+</body>
+</html>
