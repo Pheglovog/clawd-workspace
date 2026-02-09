@@ -5,8 +5,10 @@ logs/*.log
 memory/*.md
 !.gitignore
 
-# Pheglovog-homepage (independent repository)
+# Independent repositories
 Pheglovog-homepage/
+AlphaGPT/
+CarLife/
 
 # IDE
 .vscode/
