@@ -79,10 +79,11 @@
    - 在测试网部署 Uniswap
    - 验证部署流程
 
-8. [ ] 研究 Layer2 跨链桥开发
-   - 研究 LayerZero SDK
-   - 研究 Chainlink CCIP
-   - 开发简单跨链桥
+8. [x] 研究 Layer2 跨链桥开发
+   - ✅ Layer2 和跨链桥技术总览
+   - ✅ LayerZero 开发指南
+   - ✅ Chainlink CCIP 开发指南
+   - ✅ 跨链桥安全最佳实践
 
 9. [ ] 研究零知识证明实际应用
    - 学习 Circom 电路语言
