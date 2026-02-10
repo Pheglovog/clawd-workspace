@@ -154,3 +154,6 @@
   - 修复 pandas 废弃方法（fillna(method=...)）
   - 添加缺失的类型导入（Any）
   - 移除 inplace=True 使用（pandas 2.0+ 废弃）
+- [x] 提交 Canvas 应用到 Git（2026-02-10 13:00）
+  - 提交 AlphaGPT Dashboard HTML
+  - 提交 CarLife Demo HTML
