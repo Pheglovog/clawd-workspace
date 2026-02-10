@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarLife - 区块链汽车生活平台</title>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #2d2d44 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00ff88, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff88, #00d4ff, #7b2cbf);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.15);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #00ff88;
+        }
+
+        .feature-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(0, 255, 136, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: scale(1.05);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .nft-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .car-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .car-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .car-card:hover {
+            border-color: #00ff88;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .car-vin {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .car-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .car-info {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .car-info-item {
+            flex: 1;
+        }
+
+        .car-info-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .car-info-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
+            transform: scale(1.1);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        .cta-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-desc {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .cta-button {
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            color: #0a0a0a;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
+        }
+
+        .live-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 255, 136, 0.9);
+            color: #0a0a0a;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+            z-index: 1000;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚗 CarLife</h1>
+            <p class="subtitle">区块链汽车生活平台 - 透明、可信、高效</p>
+        </header>
+
+        <!-- 核心功能 -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <div class="feature-title">车辆 NFT 系统</div>
+                <div class="feature-desc">车辆信息上链，不可篡改的所有权证明，支持 NFT 转让</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <div class="feature-title">服务注册系统</div>
+                <div class="feature-desc">去中心化的服务商认证，透明的服务信息和报价</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <div class="feature-title">数据 Token 化</div>
+                <div class="feature-desc">里程、维修、驾驶等数据上链，支持安全交易</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-title">隐私保护</div>
+                <div class="feature-desc">加密存储，保护用户隐私，哈希验证防篡改</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Gas 优化</div>
+                <div class="feature-desc">自定义错误机制，降低 Gas 消耗，提升交易效率</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <div class="feature-title">安全审计</div>
+                <div class="feature-desc">Slither 安全扫描通过，GitHub Actions CI/CD 集成</div>
+            </div>
+        </div>
+
+        <!-- 统计数据 -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-value">31</div>
+                <div class="stat-label">测试用例</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">6</div>
+                <div class="stat-label">智能合约</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Solhint 警告</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">测试通过率</div>
+            </div>
+        </div>
+
+        <!-- NFT 展示 -->
+        <div class="nft-section">
+            <div class="section-title">
+                <span>🎫</span>
+                <span>车辆 NFT 示例</span>
+            </div>
+            <div class="car-cards">
+                <div class="car-card">
+                    <div class="car-vin">VIN: 5YJSA1E5JF1234567</div>
+                    <div class="car-name">Tesla Model S</div>
+                    <div class="car-info">
+                        <div class="car-info-item">
+                            <div class="car-info-label">年份</div>
+                            <div class="car-info-value">2023</div>
+                        </div>
+                        <div class="car-info-item">
+                            <div class="car-info-label">里程</div>
+                            <div class="car-info-value">50,000</div>
+                        </div>
+                        <div class="car-info-item">
+                            <div class="car-info-label">状况</div>
+                            <div class="car-info-value">优秀</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-vin">VIN: WBA740090158C12345</div>
+                    <div class="car-name">BMW X5</div>
+                    <div class="car-info">
+                        <div class="car-info-item">
+                            <div class="car-info-label">年份</div>
+                            <div class="car-info-value">2022</div>
+                        </div>
+                        <div class="car-info-item">
+                            <div class="car-info-label">里程</div>
+                            <div class="car-info-value">35,000</div>
+                        </div>
+                        <div class="car-info-item">
+                            <div class="car-info-label">状况</div>
+                            <div class="car-info-value">良好</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-vin">VIN: JM1BK323051234567</div>
+                    <div class="car-name">Mazda CX-5</div>
+                    <div class="car-info">
+                        <div class="car-info-item">
+                            <div class="car-info-label">年份</div>
+                            <div class="car-info-value">2021</div>
+                        </div>
+                        <div class="car-info-item">
+                            <div class="car-info-label">里程</div>
+                            <div class="car-info-value">42,000</div>
+                        </div>
+                        <div class="car-info-item">
+                            <div class="car-info-label">状况</div>
+                            <div class="car-info-value">良好</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 技术栈 -->
+        <div class="section-title">
+            <span>⚙️</span>
+            <span>技术栈</span>
+        </div>
+        <div class="tech-stack">
+            <div class="tech-badge">Solidity ^0.8.23</div>
+            <div class="tech-badge">Hardhat</div>
+            <div class="tech-badge">OpenZeppelin</div>
+            <div class="tech-badge">Ethers.js</div>
+            <div class="tech-badge">ERC721</div>
+            <div class="tech-badge">ERC721URIStorage</div>
+            <div class="tech-badge">Ownable</div>
+            <div class="tech-badge">Pausable</div>
+            <div class="tech-badge">Slither</div>
+            <div class="tech-badge">GitHub Actions</div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <div class="cta-title">🚀 加入 CarLife 生态</div>
+            <div class="cta-desc">体验透明、可信的区块链汽车生活服务</div>
+            <button class="cta-button" onclick="alert('感谢关注！CarLife 正在积极开发中。')">了解更多</button>
+        </div>
+    </div>
+
+    <div class="live-indicator">
+        <div class="live-dot"></div>
+        <span>Live Reload Enabled</span>
+    </div>
+
+    <script>
+        // 动态更新效果
+        const cards = document.querySelectorAll('.feature-card, .stat-card, .car-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+
+        // 添加鼠标移动效果
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            document.body.style.background = `
+                linear-gradient(
+                    ${135 + x * 30}deg, 
+                    rgb(${10 + x * 10}, ${10 + y * 10}, ${10 + x * 5}), 
+                    rgb(${26 + y * 10}, ${26 + x * 10}, ${46 + y * 10}), 
+                    rgb(${45 + x * 10}, ${45 + y * 10}, ${68 + x * 10})
+                )
+            `;
+        });
+    </script>
+</body>
+</html>
