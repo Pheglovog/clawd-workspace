@@ -61,10 +61,10 @@
    - [x] 实施优化（节省 14.4%）
 
 ### 中优先级任务
-4. [ ] 研究 Account Abstraction (ERC-4337)
-   - 学习 AA 概念和架构
-   - 研究参考实现
-   - 集成到 CarLife
+4. [x] 研究 Account Abstraction (ERC-4337)
+   - [x] 学习 AA 概念和架构
+   - [x] 研究参考实现
+   - [ ] 集成到 CarLife
 
 5. [ ] Canvas Skill 应用开发
    - 创建 AlphaGPT 仪表板
@@ -133,6 +133,8 @@
 ### 2026-02-12
 - [x] 研究零知识证明实际应用（20K+ 字）
 - [x] AlphaGPT 单元测试基础设施（15 个测试，6% 覆盖率）
+- [x] CarLife Gas 优化（节省 14.4%，44K gas）
+- [x] ERC-4337 Account Abstraction 研究（25K+ 字）
   - [x] 安装 pytest, pytest-cov, pytest-asyncio
   - [x] 安装 pandas, loguru
   - [x] 创建测试框架配置（pytest.ini）
