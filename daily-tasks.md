@@ -66,10 +66,10 @@
    - [x] 研究参考实现
    - [ ] 集成到 CarLife
 
-5. [ ] Canvas Skill 应用开发
-   - 创建 AlphaGPT 仪表板
-   - 创建 CarLife Demo
-   - 测试 Live Reload
+5. [x] Canvas Skill 应用开发
+   - [x] 创建 AlphaGPT 仪表板
+   - [x] 创建 CarLife Demo
+   - [x] 创建 Canvas Apps README
 
 6. [ ] 编写零知识证明教程
    - Circom 基础教程
