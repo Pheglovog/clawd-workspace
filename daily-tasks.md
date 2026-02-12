@@ -31,7 +31,13 @@
 
 ### 技术研究
 - [ ] 研究 Account Abstraction (ERC-4337)
+   - [x] 学习 AA 概念和架构
+   - [x] 研究参考实现
+   - [ ] 集成到 CarLife
 - [ ] 研究 EIP-712 签名标准
+   - [x] 学习 EIP-712 规范
+   - [x] 实现类型化签名
+   - [ ] 添加到 CarLife
 - [x] 研究 Soulbound Token (SBT)
    - [x] 学习 SBT 概念和特性
    - [x] 研究 EIP-5192 标准
