@@ -32,7 +32,11 @@
 ### 技术研究
 - [ ] 研究 Account Abstraction (ERC-4337)
 - [ ] 研究 EIP-712 签名标准
-- [ ] 研究 Soulbound Token (SBT)
+- [x] 研究 Soulbound Token (SBT)
+   - [x] 学习 SBT 概念和特性
+   - [x] 研究 EIP-5192 标准
+   - [x] 智能合约实现
+   - [ ] 集成到 CarLife
 
 ### 项目维护
 - [x] 定期依赖检查（每周一已配置）
