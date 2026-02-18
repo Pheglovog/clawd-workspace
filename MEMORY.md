@@ -405,3 +405,31 @@ Token: cc9f4227a4be5c67699791c24526d2ec3947877f1cec3619866078f4
   - 研究主流聚合器协议（1inch、ParaSwap、Matcha、CowSwap、KyberSwap）
   - 聚合器开发实战（1inch API 集成、ParaSwap API 集成、简单链上聚合器）
   - 学习最佳实践（API 集成、滑点管理、Gas 优化、错误处理）
+  - 学习最佳实践（API 集成、滑点管理、Gas 优化、错误处理）
+- [x] EIP-712 实战开发（20K+ 字）
+  - 文件：/root/clawd/memory/defi-research/eip712-development.md
+  - 学习 EIP-712 概述（定义、价值、重要性）
+  - 学习技术原理（域分隔符、类型数据、消息数据）
+  - 开发环境搭建（依赖安装、配置）
+  - Solidity 实战（Permit 功能、Permit2 功能、Meta-Transaction）
+  - TypeScript/JavaScript 实战（ethers.js 签名、viem 签名）
+  - CarLife 项目集成（CarLifeServicePermit 合约、React 前端）
+  - 最佳实践（安全、Gas 优化、用户体验）
+  - 常见问题（Nonce 不匹配、签名过期、转发器攻击、钓鱼攻击、Gas 成本高）
+
+- 🎯 深度学习：34 小时，约 1,445K+ 字
+
+### 待深入研究
+- [ ] Canvas Skill 应用开发
+- [ ] AlphaGPT 策略引擎完善
+- [ ] NFT 动态机制 CarLife 实施（阶段 2-5）
+  - [ ] 阶段 2：改装系统
+  - [ ] 阶段 3：成就系统
+  - [ ] 阶段 4：预言机集成
+  - [ ] 阶段 5：Layer 2 部署
+- [ ] CarLife 跨链功能实施
+- [ ] CarLife DEX 聚合器实施
+- [ ] CarLife EIP-712 集成实施（Permit 功能）
+- [ ] CarLife AA/EIP-712 集成
+- [ ] 更多 DeFi 协议集成（Curve、SushiSwap）
+- [ ] CarLife MEV 策略实施（套利机器人、清算机器人）
