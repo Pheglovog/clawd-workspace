@@ -498,3 +498,11 @@ Token: cc9f4227a4be5c67699791c24526d2ec3947877f1cec3619866078f4
 - ✅ UI 设计：渐变背景、卡片动画、进度条动画
 - ✅ 掌握 Canvas 呈现工作流程
 - 🎯 深度学习：第 44 小时，约 1,625K+ 字
+
+### 2026-02-20 Canvas README 更新
+- ✅ 更新 canvas/README.md
+- ✅ 添加 CarLife Dashboard 说明（carlife-dashboard.html, 11KB）
+- ✅ 添加 AlphaGPT Dashboard 说明（alphagpt-dashboard.html, 12KB）
+- ✅ 应用列表从 4 个扩展到 6 个
+- ✅ 添加访问方式和使用说明
+- 🎯 深度学习：第 44 小时，约 1,630K+ 字

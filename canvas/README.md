@@ -136,6 +136,58 @@ canvas present --file canvas/apps/defi-yield-calculator.html
 canvas present --file canvas/apps/learning-tracker.html
 ```
 
+### 5. CarLife Dashboard (2026-02-20)
+
+**文件：** `carlife-dashboard.html`
+
+**描述：** CarLife 项目实时监控仪表板
+
+**功能：**
+- 📊 项目统计卡片（测试覆盖率、AA 测试、Gas 优化、安全扫描）
+- 📈 项目进度（85% 完成进度条）
+- ✅ 测试结果展示（7 个测试套件）
+- 🎨 NFT 预览（4 个模拟 Car NFT）
+- 🔜 即将推出功能（跨链、Gasless、会话密钥、社交恢复、动态 NFT）
+
+**技术栈：**
+- HTML5 + CSS3
+- 渐变背景（蓝紫色）
+- 卡片悬停动画
+- 进度条动画
+- 状态指示器脉冲动画
+
+**访问方式：**
+```bash
+# 在 Canvas 中展示
+canvas present --file canvas/carlife-dashboard.html
+```
+
+### 6. AlphaGPT Dashboard (2026-02-20)
+
+**文件：** `alphagpt-dashboard.html`
+
+**描述：** AlphaGPT 量化交易系统可视化界面
+
+**功能：**
+- 📦 数据覆盖（5000+ 股票，Tushare Pro 2000 积分）
+- ⚡ 性能基准（数据加载 10x、因子计算 100x、内存 -50%）
+- 🧮 技术因子（SMA、RSI、MACD、BOLL、KDJ、ATR）
+- 🔗 系统模块（6 个核心模块）
+- 📊 数据可视化（股价图表、因子信号、回测收益）
+- 🔗 API 状态（Tushare Pro API 在线）
+
+**技术栈：**
+- HTML5 + CSS3
+- 渐变背景（粉橙色）
+- 响应式布局
+- 实时时间更新
+
+**访问方式：**
+```bash
+# 在 Canvas 中展示
+canvas present --file canvas/alphagpt-dashboard.html
+```
+
 ---
 
 ## 如何使用
